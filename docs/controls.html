@@ -3,62 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>조작 · 마인토피아 TerritoryWar</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="index.html">마인토피아 <b>TerritoryWar</b></a>
+<header class="bar">
+  <a class="brand" href="index.html"><span>마인토피아</span> TerritoryWar</a>
   <nav><a href="index.html">소개</a><a href="controls.html" class="on">조작</a><a href="races.html">종족</a><a href="buildings.html">건물</a><a href="units.html">병종</a><a href="research.html">연구</a></nav>
 </header>
 <main>
 
-<h1>조작</h1>
-<p class="sub">거의 모든 조작은 핫바에서 이뤄집니다. 무엇을 선택했느냐에 따라 같은 숫자 키가
-   다른 일을 합니다.</p>
+<header class="page-head">
+  <p class="kicker">조작</p>
+  <h1>손에 익히는 순서</h1>
+  <p class="lead">조작은 거의 다 핫바에서 끝난다.
+     무엇을 선택했느냐에 따라 같은 숫자 키가 다른 일을 한다.</p>
+</header>
 
 <section>
   <h2>시작하기</h2>
-  <p class="sub">순서대로 하면 됩니다. <code>/tw nation</code> 은 폐지됐고,
-     건국은 <b>preset 한 번 + join</b> 입니다.</p>
-  <table class="cmds"><tbody><tr><td><code>/tw preset</code></td><td>국가 이름·색·문양·<b>종족</b>을 고릅니다. 한 번만 하면 됩니다</td></tr><tr><td><code>/tw join</code></td><td>참전. 별칭은 <code>/tw play</code> · <code>/tw 참가</code></td></tr><tr><td><code>우클릭</code></td><td>정착지 선정 단계에 땅을 우클릭해 자리를 잡습니다</td></tr><tr><td><code>/tw watch</code></td><td>관전으로 들어갑니다. 참전 중에는 바꿀 수 없습니다</td></tr><tr><td><code>/tw phase</code></td><td>현재 단계와 남은 시간</td></tr></tbody></table>
+  <p class="sub">순서는 이렇다. <code>/tw nation</code> 은 폐지됐고
+     건국은 <b>preset 한 번에 join</b>.</p>
+  <table class="cmds"><tbody><tr><td><code>/tw preset</code></td><td>국가 이름·색·문양·<b>종족</b>을 고른다. 한 번이면 된다</td></tr><tr><td><code>/tw join</code></td><td>참전. <code>/tw play</code> · <code>/tw 참가</code> 로도 된다</td></tr><tr><td><code>우클릭</code></td><td>정착지 선정 단계에 땅을 우클릭해 자리를 잡는다</td></tr><tr><td><code>/tw watch</code></td><td>관전으로 빠진다. 참전 중에는 바꾸지 못한다</td></tr><tr><td><code>/tw phase</code></td><td>현재 단계와 남은 시간</td></tr></tbody></table>
 </section>
 
-<section>
-  <h2>아무것도 선택하지 않았을 때</h2>
-  <table class="keys"><tbody><tr><td><kbd>1</kbd></td><td><b>필드맵 / 정착지 전환</b></td><td>영토·요새·원정대를 보러 나갑니다</td></tr><tr><td><kbd>2</kbd></td><td><b>건물 건설</b></td><td>고른 뒤 지을 곳을 조준합니다</td></tr><tr><td><kbd>3</kbd></td><td><b>외교</b></td><td>동맹 · 항복 · 지원</td></tr><tr><td><kbd>4</kbd></td><td><b>출진</b></td><td>병력과 보급을 실어 내보냅니다</td></tr><tr><td><kbd>5</kbd></td><td><b>국가 정보</b></td><td>자원·인구·정책·기술을 한 창에서</td></tr><tr><td><kbd>6</kbd></td><td><b>인력 배분</b></td><td>건설에 나가는 인력, 나머지는 생산 건물로</td></tr><tr><td><kbd>8</kbd></td><td><b>다른 정착지</b></td><td>내 정착지 사이를 오갑니다</td></tr></tbody></table>
+<section class="split">
+  <div>
+    <h2>선택한 것이 없을 때</h2>
+    <table class="keys"><tbody><tr><td><kbd>1</kbd></td><th>필드맵 · 정착지</th><td>영토와 요새, 나가 있는 원정대를 본다</td></tr><tr><td><kbd>2</kbd></td><th>건물 건설</th><td>고른 뒤 지을 곳을 조준한다</td></tr><tr><td><kbd>3</kbd></td><th>외교</th><td>동맹 · 항복 · 지원</td></tr><tr><td><kbd>4</kbd></td><th>출진</th><td>병력과 보급을 실어 내보낸다</td></tr><tr><td><kbd>5</kbd></td><th>국가 정보</th><td>자원과 인구, 정책과 기술을 한 창에서</td></tr><tr><td><kbd>6</kbd></td><th>인력 배분</th><td>건설로 나가는 인력. 나머지는 생산 건물로 간다</td></tr><tr><td><kbd>8</kbd></td><th>다른 정착지</th><td>내 정착지 사이를 오간다</td></tr></tbody></table>
+  </div>
+  <div>
+    <h2>필드맵에서</h2>
+    <table class="keys"><tbody><tr><td><kbd>1</kbd></td><th>정착지로</th><td>필드맵에서 돌아온다</td></tr><tr><td><kbd>2</kbd></td><th>원정대 목록</th><td>짐과 굶주림까지 나온다</td></tr><tr><td><kbd>3</kbd></td><th>보급 · 교역</th><td>정착지에서 물자를 싣고 내린다</td></tr><tr><td><kbd>4</kbd></td><th>귀환 · 해산</th><td></td></tr><tr><td><kbd>6</kbd></td><th>필드 건설</th><td>전초기지나 보급기지 같은 야전 건물</td></tr></tbody></table>
+  </div>
 </section>
 
 <section>
   <h2>건물을 선택했을 때</h2>
-  <p class="sub">건물을 바라보고 좌클릭하면 선택됩니다.</p>
-  <table class="keys"><tbody><tr><td><kbd>1</kbd></td><td><b>강화 / 취소</b></td><td>레벨을 올립니다. 진행 중이면 취소하고 자원을 전액 돌려받습니다</td></tr><tr><td><kbd>2</kbd></td><td><b>전용 창</b></td><td>건물마다 다릅니다 — 병종 생산, 연구, 주둔, 민병 무장</td></tr><tr><td><kbd>3</kbd></td><td><b>보조 창</b></td><td>괴수 우리의 연구, 망루의 주둔 해제</td></tr><tr><td><kbd>4</kbd></td><td><b>상세 정보</b></td><td>능력치와 상성을 봅니다</td></tr><tr><td><kbd>5</kbd></td><td><b>인부 우선순위</b></td><td>생산 건물에 사람을 먼저 보낼 순서</td></tr></tbody></table>
-</section>
-
-<section>
-  <h2>필드맵에서</h2>
-  <table class="keys"><tbody><tr><td><kbd>1</kbd></td><td><b>정착지로</b></td><td>필드맵에서 돌아옵니다</td></tr><tr><td><kbd>2</kbd></td><td><b>원정대 목록</b></td><td>짐과 굶주림까지 봅니다</td></tr><tr><td><kbd>3</kbd></td><td><b>보급 · 교역</b></td><td>정착지에서 물자를 싣고 내립니다</td></tr><tr><td><kbd>4</kbd></td><td><b>귀환 · 해산</b></td><td></td></tr><tr><td><kbd>6</kbd></td><td><b>필드 건설</b></td><td>전초기지·보급기지 같은 야전 건물</td></tr></tbody></table>
+  <p class="sub">건물을 바라보고 좌클릭하면 잡힌다.</p>
+  <table class="keys"><tbody><tr><td><kbd>1</kbd></td><th>강화 · 취소</th><td>레벨을 올린다. 진행 중이면 취소하고 자원을 전액 돌려받는다</td></tr><tr><td><kbd>2</kbd></td><th>전용 창</th><td>건물마다 다르다. 병종 생산, 연구, 주둔, 민병 무장</td></tr><tr><td><kbd>3</kbd></td><th>보조 창</th><td>괴수 우리의 연구, 망루의 주둔 해제</td></tr><tr><td><kbd>4</kbd></td><th>상세 정보</th><td>능력치와 상성</td></tr><tr><td><kbd>5</kbd></td><th>인부 우선순위</th><td>생산 건물에 사람을 먼저 보낼 순서</td></tr></tbody></table>
 </section>
 
 <section>
   <h2>명령어</h2>
-  <table class="cmds"><tbody><tr><td><code>/tw info</code></td><td>내 나라 요약</td></tr><tr><td><code>/tw here</code></td><td>서 있는 칸 정보</td></tr><tr><td><code>/tw list</code></td><td>나라 목록</td></tr><tr><td><code>/tw build [건물]</code></td><td>인수 없이 쓰면 건설 창이 열립니다</td></tr><tr><td><code>/tw claim / unclaim</code></td><td>칸 점유 / 해제</td></tr><tr><td><code>/tw upgrade</code></td><td>서 있는 건물 강화</td></tr><tr><td><code>/tw train [병종] [수]</code></td><td>인수 없이 치면 내 종족의 병종표</td></tr><tr><td><code>/tw garrison [병종]</code></td><td>서 있는 망루·발리스타에 주둔</td></tr><tr><td><code>/tw sortie</code></td><td>출진 창 (병종·보급 슬라이더)</td></tr><tr><td><code>/tw armies</code></td><td>원정대 목록 (짐·굶주림 포함)</td></tr><tr><td><code>/tw follow</code></td><td>선택한 원정대 위치로 이동</td></tr><tr><td><code>/tw recallarmy</code></td><td>선택한 원정대 정지</td></tr><tr><td><code>/tw trade</code></td><td>선택한 원정대로 정착지에서 거래</td></tr><tr><td><code>/tw pack [reload]</code></td><td>리소스팩 상태 / 재전송</td></tr><tr><td><code>/tw 설정</code></td><td>라운드 규칙 보기·변경</td></tr></tbody></table>
+  <table class="cmds"><tbody><tr><td><code>/tw info</code></td><td>내 나라 요약</td></tr><tr><td><code>/tw here</code></td><td>서 있는 칸 정보</td></tr><tr><td><code>/tw list</code></td><td>나라 목록</td></tr><tr><td><code>/tw build [건물]</code></td><td>인수 없이 치면 건설 창이 열린다</td></tr><tr><td><code>/tw claim · unclaim</code></td><td>칸 점유와 해제</td></tr><tr><td><code>/tw upgrade</code></td><td>서 있는 건물 강화</td></tr><tr><td><code>/tw train [병종] [수]</code></td><td>인수 없이 치면 내 종족의 병종표</td></tr><tr><td><code>/tw garrison [병종]</code></td><td>서 있는 망루나 발리스타에 주둔</td></tr><tr><td><code>/tw sortie</code></td><td>출진 창. 병종과 보급을 슬라이더로 싣는다</td></tr><tr><td><code>/tw armies</code></td><td>원정대 목록. 짐과 굶주림 포함</td></tr><tr><td><code>/tw follow</code></td><td>선택한 원정대 위치로 이동</td></tr><tr><td><code>/tw recallarmy</code></td><td>선택한 원정대 정지</td></tr><tr><td><code>/tw trade</code></td><td>선택한 원정대로 정착지에서 거래</td></tr><tr><td><code>/tw pack [reload]</code></td><td>리소스팩 상태와 재전송</td></tr><tr><td><code>/tw 설정</code></td><td>라운드 규칙 보기와 변경</td></tr></tbody></table>
 </section>
 
 <section>
   <h2>전쟁과 외교</h2>
-  <table class="cmds"><tbody><tr><td><code>/tw siege &lt;국가&gt;</code></td><td>상대 타운홀 방향으로 바위를 던집니다. 광물 15, 물리 탄도 — 튕기고 굴러서 <b>멈춘 칸의 건물</b>이 맞습니다</td></tr><tr><td><code>/tw diplomacy</code></td><td>외교 창 (동맹·항복·지원)</td></tr><tr><td><code>/tw ally &lt;국가&gt;</code></td><td>동맹 제안 (이미 동맹이면 파기)</td></tr><tr><td><code>/tw surrender &lt;국가&gt;</code></td><td>항복 제안 (비축 절반 배상 + 속국화)</td></tr><tr><td><code>/tw accept &lt;국가&gt;</code></td><td>받은 제안 수락</td></tr><tr><td><code>/tw offers</code></td><td>받은 제안 목록</td></tr><tr><td><code>/tw gift &lt;국가&gt; &lt;자원&gt; &lt;수량&gt;</code></td><td>자원 지원</td></tr><tr><td><code>/tw 비난 &lt;국가&gt;</code></td><td>공개 규탄 — 실질 효과는 없습니다</td></tr></tbody></table>
+  <table class="cmds"><tbody><tr><td><code>/tw siege &lt;국가&gt;</code></td><td>상대 타운홀 쪽으로 바위를 던진다. 광물 15. 물리 탄도라 튕기고 굴러서 <b>멈춘 칸의 건물</b>이 맞는다</td></tr><tr><td><code>/tw diplomacy</code></td><td>외교 창. 동맹과 항복, 지원</td></tr><tr><td><code>/tw ally &lt;국가&gt;</code></td><td>동맹 제안. 이미 동맹이면 파기</td></tr><tr><td><code>/tw surrender &lt;국가&gt;</code></td><td>항복 제안. 비축 절반을 배상하고 속국이 된다</td></tr><tr><td><code>/tw accept &lt;국가&gt;</code></td><td>받은 제안 수락</td></tr><tr><td><code>/tw offers</code></td><td>받은 제안 목록</td></tr><tr><td><code>/tw gift &lt;국가&gt; &lt;자원&gt; &lt;수량&gt;</code></td><td>자원 지원</td></tr><tr><td><code>/tw 비난 &lt;국가&gt;</code></td><td>공개 규탄. 실질 효과는 없다</td></tr></tbody></table>
 </section>
 
 <section>
   <h2>관리자 · 테스트</h2>
-  <table class="cmds"><tbody><tr><td><code>/tw start [초]</code></td><td>정착지 선정 시작</td></tr><tr><td><code>/tw 치트 시작 [국가명]</code></td><td>대기·선정 건너뛰고 즉시 정착지 생성</td></tr><tr><td><code>/tw 치트 자원 [양]</code></td><td>광물·식량·목재를 그만큼 (기본 1000)</td></tr><tr><td><code>/tw 치트 완공</code></td><td>건설·강화 즉시 완료</td></tr><tr><td><code>/tw 치트 유닛 &lt;병종&gt; [수]</code></td><td>즉시 생성 (비용·훈련 무시)</td></tr><tr><td><code>/tw 치트 적 &lt;병종&gt; [수]</code></td><td>적대 AI 병사 생성</td></tr><tr><td><code>/tw 치트 적정리</code></td><td>생성한 적을 전부 지웁니다</td></tr><tr><td><code>/tw 치트 전투 [규모]</code></td><td>모의전 — 검병:궁수:창기병 = 60:20:10</td></tr><tr><td><code>/tw 치트 배속 [배]</code></td><td>경제 속도</td></tr><tr><td><code>/tw 설정 인구 &lt;최대&gt;</code></td><td>0 이면 무제한</td></tr><tr><td><code>/tw 설정 정예 &lt;수&gt;</code></td><td>5티어 병종 동시 보유 상한</td></tr><tr><td><code>/tw 설정 리로드</code></td><td>config.yml 을 재시작 없이 다시 읽습니다</td></tr><tr><td><code>/tw 래그돌 [무손상|팔|덩어리|산산조각]</code></td><td>바라보는 곳에 시체 하나</td></tr><tr><td><code>/tw 샌드박스</code></td><td>모델 전시장</td></tr><tr><td><code>/tw 트림</code></td><td>갑옷 트림 목록</td></tr><tr><td><code>/tw 스킨목록 · /tw 스킨 &lt;이름&gt;</code></td><td>마네킹 스킨 목록·미리보기</td></tr><tr><td><code>tw docs</code></td><td>콘솔 전용 — 이 문서의 원본 데이터를 씁니다</td></tr></tbody></table>
+  <table class="cmds"><tbody><tr><td><code>/tw start [초]</code></td><td>정착지 선정 시작</td></tr><tr><td><code>/tw 치트 시작 [국가명]</code></td><td>대기와 선정을 건너뛰고 즉시 정착지 생성</td></tr><tr><td><code>/tw 치트 자원 [양]</code></td><td>광물·식량·목재를 그만큼. 기본 1000</td></tr><tr><td><code>/tw 치트 완공</code></td><td>건설과 강화 즉시 완료</td></tr><tr><td><code>/tw 치트 유닛 &lt;병종&gt; [수]</code></td><td>즉시 생성. 비용과 훈련을 무시한다</td></tr><tr><td><code>/tw 치트 적 &lt;병종&gt; [수]</code></td><td>적대 AI 병사 생성</td></tr><tr><td><code>/tw 치트 적정리</code></td><td>생성한 적을 전부 지운다</td></tr><tr><td><code>/tw 치트 전투 [규모]</code></td><td>모의전. 검병:궁수:창기병 = 60:20:10</td></tr><tr><td><code>/tw 치트 배속 [배]</code></td><td>경제 속도</td></tr><tr><td><code>/tw 설정 인구 &lt;최대&gt;</code></td><td>0 이면 무제한</td></tr><tr><td><code>/tw 설정 정예 &lt;수&gt;</code></td><td>5티어 병종 동시 보유 상한</td></tr><tr><td><code>/tw 설정 리로드</code></td><td>config.yml 을 재시작 없이 다시 읽는다</td></tr><tr><td><code>/tw 래그돌 [무손상|팔|덩어리|산산조각]</code></td><td>바라보는 곳에 시체 하나</td></tr><tr><td><code>/tw 샌드박스</code></td><td>모델 전시장</td></tr><tr><td><code>/tw 트림</code></td><td>갑옷 트림 목록</td></tr><tr><td><code>/tw 스킨목록 · /tw 스킨 &lt;이름&gt;</code></td><td>마네킹 스킨 목록과 미리보기</td></tr><tr><td><code>tw docs</code></td><td>콘솔 전용. 이 문서의 원본 데이터를 쓴다</td></tr></tbody></table>
 </section>
 
 </main>
 <footer>
-  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
-  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+  <span>마인크래프트 위의 타일 전략</span>
+  <span>표와 수치는 게임 데이터에서 그대로 뽑아 씁니다</span>
 </footer>
 </body>
 </html>

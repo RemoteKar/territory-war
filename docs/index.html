@@ -3,96 +3,95 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>소개 · 마인토피아 TerritoryWar</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="index.html">마인토피아 <b>TerritoryWar</b></a>
+<header class="bar">
+  <a class="brand" href="index.html"><span>마인토피아</span> TerritoryWar</a>
   <nav><a href="index.html" class="on">소개</a><a href="controls.html">조작</a><a href="races.html">종족</a><a href="buildings.html">건물</a><a href="units.html">병종</a><a href="research.html">연구</a></nav>
 </header>
 <main>
 
 <section class="hero">
+  <p class="kicker">마인크래프트 위의 타일 전략</p>
   <h1>영토 전쟁</h1>
   <p class="lead">
-    마인크래프트 위에 올린 타일 기반 실시간 전략. 땅을 점유해 정착지를 세우고,
-    인구를 노동과 병력으로 나누고, 원정대를 꾸려 남의 땅으로 나갑니다.
-    타운홀이 무너지면 그 나라는 끝입니다.
+    땅을 점유해 정착지를 올리고 인구를 노동과 병력으로 갈라 쓴다.
+    원정대를 꾸려 이웃의 국경을 넘는 데까지가 한 판.
+    타운홀이 무너진 나라는 그 자리에서 사라진다.
   </p>
   <div class="cta">
     <a class="btn" href="controls.html">조작부터 보기</a>
     <a class="btn ghost" href="races.html">종족 고르기</a>
   </div>
+  <div class="strip"><div><b>4</b><span>종족</span></div><div><b>50</b><span>건물</span></div><div><b>102</b><span>병종</span></div><div><b>30</b><span>연구</span></div></div>
 </section>
 
 <section>
   <h2>네 개의 종족</h2>
-  <p class="sub">같은 지도를 전혀 다른 방식으로 삽니다. 고르는 순간 지을 수 있는 건물과
-     뽑을 수 있는 병종이 갈립니다.</p>
-  <div class="cards">
-    <a class="card out" href="race/OUTLANDER.html">
+  <p class="sub">같은 지도를 서로 다른 방식으로 산다.
+     무엇을 고르느냐에 따라 지을 건물과 뽑을 병종이 통째로 갈린다.</p>
+  <div class="race-grid">
+    <a class="race-card out" href="race/OUTLANDER.html">
+      <span class="rule"></span>
       <h3>이방인</h3>
       <p>사람을 뽑아 무엇이든 시킵니다. 정책 세 가지를 고르고, 인구는 저절로 회복합니다.</p>
-      <div class="stat"><span>건물 31</span><span>병종 57</span></div>
+      <div class="meta"><span>건물 31</span><span>병종 57</span></div>
     </a>
-    <a class="card vil" href="race/VILLAGER.html">
+    <a class="race-card vil" href="race/VILLAGER.html">
+      <span class="rule"></span>
       <h3>주민</h3>
       <p>번식으로 늘고, 한 번 배운 직업만 합니다. 정책이 없는 대신 골렘과 우민을 세웁니다.</p>
-      <div class="stat"><span>건물 14</span><span>병종 13</span></div>
+      <div class="meta"><span>건물 14</span><span>병종 13</span></div>
     </a>
-    <a class="card und" href="race/UNDEAD.html">
+    <a class="race-card und" href="race/UNDEAD.html">
+      <span class="rule"></span>
       <h3>언데드</h3>
       <p>시체를 거두어 유해로 삼습니다. 식량도 출산도 없고, 전장을 지켜야만 늘어납니다.</p>
-      <div class="stat"><span>건물 12</span><span>병종 17</span></div>
+      <div class="meta"><span>건물 12</span><span>병종 17</span></div>
     </a>
-    <a class="card pig" href="race/PIGLIN.html">
+    <a class="race-card pig" href="race/PIGLIN.html">
+      <span class="rule"></span>
       <h3>피글린</h3>
       <p>광물은 금이고 금은 괴수를 삽니다. 번식하지 못하며, 적의 주민을 납치해 늘어납니다.</p>
-      <div class="stat"><span>건물 13</span><span>병종 5</span></div>
+      <div class="meta"><span>건물 13</span><span>병종 5</span></div>
     </a></div>
 </section>
 
 <section>
   <h2>한 판의 흐름</h2>
-  <ol class="flow">
-    <li><b>정착</b> 필드맵에서 칸을 점유하고 타운홀을 세웁니다.</li>
-    <li><b>경제</b> 인구를 인부로 보내 광물·식량·목재를 캡니다.
-        인력 배분(<kbd>6</kbd>)이 건설과 생산의 비율입니다.</li>
-    <li><b>확장</b> 집으로 인구 한도를 올리고, 생산 건물을 강화합니다.</li>
-    <li><b>군비</b> 무기고 계열 레벨이 병종 티어를 엽니다.
-        연구는 능력치, 건물 레벨은 해금입니다.</li>
-    <li><b>원정</b> 출진 창에서 병력과 보급을 실어 내보냅니다.
-        보급이 떨어지면 굶습니다.</li>
-    <li><b>결착</b> 상대 타운홀을 부수거나, 외교로 항복을 받아냅니다.</li>
-  </ol>
+  <ol class="steps"><li><b>정착</b><span>필드맵에서 칸을 점유하고 타운홀을 세운다.</span></li><li><b>경제</b><span>인구가 곧 인부. 인력 배분에서 건설과 생산의 비율을 정하면 나머지는 알아서 굴러간다.</span></li><li><b>확장</b><span>집을 올려 인구 한도를 밀어올린다. 생산 건물은 레벨이 곧 산출량.</span></li><li><b>군비</b><span>무기고 계열 레벨이 병종 티어를 연다. 연구가 올려주는 건 능력치뿐.</span></li><li><b>원정</b><span>출진 창에서 병력과 보급을 싣는다. 보급이 떨어진 원정대는 굶는다.</span></li><li><b>결착</b><span>상대의 타운홀을 부수거나 외교로 항복을 받아낸다.</span></li></ol>
 </section>
 
-<section class="grid2">
+<section class="split">
   <div>
-    <h2>알아둘 것</h2>
-    <ul class="plain">
-      <li>인구는 노동이자 병력입니다. 징집하면 그만큼 생산이 줍니다.</li>
-      <li>병종은 상성이 있습니다. 창병은 기병에게 강하고 경보병에게 약합니다.</li>
-      <li>지형 특산 병종·건물이 있습니다. 그 지형을 점유해야 열립니다.</li>
-      <li>장벽은 실제 블록이 아니라 길막이입니다. 전투 중인 칸에는 세울 수 없습니다.</li>
-    </ul>
+    <h2>판을 읽는 법</h2>
+    <p>인구는 곧 노동이자 병력. 한 명을 징집하면 생산에서 그만큼 빠지니
+       군대를 불릴수록 경제는 얇아진다.</p>
+    <p>상성이 전투를 가른다. 창병은 기병에게 강하고 경보병에게 약하다.
+       지형 특산 병종과 건물은 그 지형을 점유해야 열리는 것들.</p>
+    <p>장벽은 길을 막는 판정일 뿐. 실제 블록으로 이어지지 않으니
+       전투가 붙은 칸에 새로 세우지 못한다.</p>
   </div>
   <div>
-    <h2>데이터</h2>
-    <ul class="plain">
-      <li>이 사이트의 표와 수치는 전부 <code>docs.json</code> 에서 생성됩니다.</li>
-      <li>서버 콘솔에서 <code>tw docs</code> 를 실행하면 갱신본이 나옵니다.</li>
-      <li><a href="docs.json">docs.json 내려받기</a></li>
-    </ul>
-    <p class="muted small">생성 시각 2026-09-07T00:55:43.042263600Z</p>
+    <h2>이 문서에 대하여</h2>
+    <p>이 표들은 어디서 왔나. 서버 콘솔에서 <code>tw docs</code> 를 치면 플러그인이
+       자기 데이터를 그대로 뱉고, 이 페이지들은 그것만 읽어 만들어진다.
+       밸런스를 고치면 문서도 같이 따라온다.</p>
+    <p class="links">
+      <a href="docs.json">docs.json 내려받기</a>
+      <a href="https://github.com/RemoteKar/territory-war">GitHub</a>
+    </p>
+    <p class="muted small">데이터 생성 2026-09-07</p>
   </div>
 </section>
 
 </main>
 <footer>
-  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
-  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+  <span>마인크래프트 위의 타일 전략</span>
+  <span>표와 수치는 게임 데이터에서 그대로 뽑아 씁니다</span>
 </footer>
 </body>
 </html>

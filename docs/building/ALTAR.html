@@ -3,29 +3,33 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>제단 · 마인토피아 TerritoryWar</title>
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="../index.html">마인토피아 <b>TerritoryWar</b></a>
+<header class="bar">
+  <a class="brand" href="../index.html"><span>마인토피아</span> TerritoryWar</a>
   <nav><a href="../index.html">소개</a><a href="../controls.html">조작</a><a href="../races.html">종족</a><a href="../buildings.html" class="on">건물</a><a href="../units.html">병종</a><a href="../research.html">연구</a></nav>
 </header>
 <main>
 
-<p class="crumb"><a href="../buildings.html">건물</a> / 제단</p>
-<h1>제단</h1>
-<p class="lead">시체를 병사로 세웁니다. 훈련은 없고, 값은 시체 그 자체입니다.</p>
-<p class="tags"><span class="tag">정착지</span><span class="tag">내정</span></p>
-<p class="pills"><a class="pill und" href="../race/UNDEAD.html">언데드</a></p>
-<section><h2>제원</h2><table class="facts"><tbody><tr><th>크기</th><td>4칸 (16블록)</td></tr><tr><th>체력</th><td>200</td></tr><tr><th>건설 비용</th><td><span class="r ore">광물 15</span> <span class="r wood">목재 60</span></td></tr><tr><th>공사량</th><td>12</td></tr></tbody></table></section>
-<section><h2>강화</h2><table class='facts'><tbody><tr><th>Lv1</th><td class='muted'>건설 시점</td></tr><tr><th>Lv2</th><td><span class="r ore">광물 30</span> <span class="r wood">목재 120</span></td></tr><tr><th>Lv3</th><td><span class="r ore">광물 45</span> <span class="r wood">목재 180</span></td></tr><tr><th>Lv4</th><td><span class="r ore">광물 60</span> <span class="r wood">목재 240</span></td></tr></tbody></table><p class='muted small'>연구소를 지을 수 없는 종족은 연구 없이 Lv4까지 갑니다.</p></section>
-<section><h2>여기서 나오는 병종</h2><div class='chips'><a class="chip" href="../unit/SHAMBLER.html">좀비 <span class="muted">T1</span></a><a class="chip" href="../unit/ZOMBIE_WHELP.html">새끼 좀비 <span class="muted">T1</span></a><a class="chip" href="../unit/DROWNED.html">드라운드 <span class="muted">T1</span></a><a class="chip" href="../unit/HUSK.html">허스크 <span class="muted">T1</span></a><a class="chip" href="../unit/BONE_ARCHER.html">스켈레톤 궁수 <span class="muted">T2</span></a><a class="chip" href="../unit/BOGGED.html">보그드 <span class="muted">T2</span></a><a class="chip" href="../unit/STRAY.html">스트레이 <span class="muted">T2</span></a><a class="chip" href="../unit/PARCHED.html">파치트 <span class="muted">T2</span></a><a class="chip" href="../unit/HUSK_CAMEL_RIDER.html">낙타 기수 <span class="muted">T2</span></a><a class="chip" href="../unit/WITHER_SKELETON.html">위더 스켈레톤 <span class="muted">T3</span></a><a class="chip" href="../unit/TRIDENT_DROWNED.html">삼지창 드라운드 <span class="muted">T3</span></a><a class="chip" href="../unit/ZOMBIE_RIDER.html">좀비 기병 <span class="muted">T3</span></a><a class="chip" href="../unit/BONE_RIDER.html">스켈레톤 기병 <span class="muted">T3</span></a><a class="chip" href="../unit/CHICKEN_JOCKEY.html">치킨 조키 <span class="muted">T2</span></a><a class="chip" href="../unit/SPIDER_JOCKEY.html">스파이더 조키 <span class="muted">T4</span></a><a class="chip" href="../unit/GIANT.html">자이언트 <span class="muted">T4</span></a><a class="chip" href="../unit/SKELETON.html">스켈레톤 <span class="muted">T1</span></a></div></section>
+<p class="crumb"><a href="../buildings.html">건물</a><span>제단</span></p>
+<header class="page-head">
+  <h1>제단</h1>
+  <p class="lead">시체를 병사로 세웁니다. 훈련은 없고, 값은 시체 그 자체입니다.</p>
+  <p class="tags"><span class="tag">정착지</span><span class="tag">내정</span></p>
+  <p class="pills"><a class="pill und" href="../race/UNDEAD.html">언데드</a></p>
+</header>
+<section><h2>제원</h2><div class="statgrid"><div class="stat"><span>크기</span><b>4칸</b><i>16블록</i></div><div class="stat"><span>체력</span><b>200</b></div><div class="stat"><span>공사량</span><b>12</b></div></div>
+<table class="facts"><tbody><tr><th>건설 비용</th><td><span class="r"><i class="ore">광물 15</i><i class="wood">목재 60</i></span></td></tr></tbody></table></section>
+<section><h2>강화</h2><table class='facts'><tbody><tr><th>Lv1</th><td class='muted'>건설 시점</td></tr><tr><th>Lv2</th><td><span class="r"><i class="ore">광물 30</i><i class="wood">목재 120</i></span></td></tr><tr><th>Lv3</th><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 180</i></span></td></tr><tr><th>Lv4</th><td><span class="r"><i class="ore">광물 60</i><i class="wood">목재 240</i></span></td></tr></tbody></table><p class='muted small'>연구소를 지을 수 없는 종족은 연구 없이 Lv4까지 간다.</p></section>
+<section><h2>여기서 나오는 병종</h2><div class='chips'><a class="chip" href="../unit/SHAMBLER.html">좀비<em>T1</em></a><a class="chip" href="../unit/ZOMBIE_WHELP.html">새끼 좀비<em>T1</em></a><a class="chip" href="../unit/DROWNED.html">드라운드<em>T1</em></a><a class="chip" href="../unit/HUSK.html">허스크<em>T1</em></a><a class="chip" href="../unit/BONE_ARCHER.html">스켈레톤 궁수<em>T2</em></a><a class="chip" href="../unit/BOGGED.html">보그드<em>T2</em></a><a class="chip" href="../unit/STRAY.html">스트레이<em>T2</em></a><a class="chip" href="../unit/PARCHED.html">파치트<em>T2</em></a><a class="chip" href="../unit/HUSK_CAMEL_RIDER.html">낙타 기수<em>T2</em></a><a class="chip" href="../unit/WITHER_SKELETON.html">위더 스켈레톤<em>T3</em></a><a class="chip" href="../unit/TRIDENT_DROWNED.html">삼지창 드라운드<em>T3</em></a><a class="chip" href="../unit/ZOMBIE_RIDER.html">좀비 기병<em>T3</em></a><a class="chip" href="../unit/BONE_RIDER.html">스켈레톤 기병<em>T3</em></a><a class="chip" href="../unit/CHICKEN_JOCKEY.html">치킨 조키<em>T2</em></a><a class="chip" href="../unit/SPIDER_JOCKEY.html">스파이더 조키<em>T4</em></a><a class="chip" href="../unit/GIANT.html">자이언트<em>T4</em></a><a class="chip" href="../unit/SKELETON.html">스켈레톤<em>T1</em></a></div></section>
 
 </main>
 <footer>
-  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
-  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+  <span>마인크래프트 위의 타일 전략</span>
+  <span>표와 수치는 게임 데이터에서 그대로 뽑아 씁니다</span>
 </footer>
 </body>
 </html>

@@ -3,30 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>건물 · 마인토피아 TerritoryWar</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="index.html">마인토피아 <b>TerritoryWar</b></a>
+<header class="bar">
+  <a class="brand" href="index.html"><span>마인토피아</span> TerritoryWar</a>
   <nav><a href="index.html">소개</a><a href="controls.html">조작</a><a href="races.html">종족</a><a href="buildings.html" class="on">건물</a><a href="units.html">병종</a><a href="research.html">연구</a></nav>
 </header>
-<main>
+<main class="wide">
 
-<h1>건물 <span class="muted">45</span></h1>
-<p class="sub">칸은 차지하는 타일 수, 체력은 부서지기까지의 내구입니다.
-   종족 뱃지는 그 건물을 지을 수 있는 종족입니다.</p>
+<header class="page-head">
+  <p class="kicker">건물</p>
+  <h1>지을 수 있는 것들 <em>45</em></h1>
+  <p class="lead">칸은 차지하는 타일 수, 체력은 부서지기까지 버티는 내구.
+     오른쪽 뱃지는 그 건물을 지을 수 있는 종족.</p>
+</header>
 
 <div class="filter">
-  <input id="q" type="search" placeholder="이름으로 거르기…" autocomplete="off">
-  <span class="races">
+  <input id="q" type="search" placeholder="이름으로 거르기" autocomplete="off">
+  <div class="races">
     <button class="pill on" data-race="">전체</button>
     <button class="pill out" data-race="OUTLANDER">이방인</button>
     <button class="pill vil" data-race="VILLAGER">주민</button>
     <button class="pill und" data-race="UNDEAD">언데드</button>
     <button class="pill pig" data-race="PIGLIN">피글린</button>
-  </span>
+  </div>
+  <span class="count" id="count"></span>
 </div>
+<div class="tablewrap">
 <table class="list" id="tbl">
 <thead><tr><th>이름</th><th>분류</th><th>쓰임</th><th class="num">크기</th><th class="num">체력</th>
 <th>건설 비용</th><th>종족</th></tr></thead>
@@ -34,421 +40,425 @@
     <tr data-races="PIGLIN" data-name="감시대">
       <td><a href="building/WATCH_POST.html">감시대</a></td>
       <td class="muted small">내정</td>
-      <td>피글린의 망루. 병사를 올려두면 사거리가 늘어납니다.</td>
+      <td class="note">피글린의 망루. 병사를 올려두면 사거리가 늘어납니다.</td>
       <td class="num">2칸</td>
       <td class="num">180</td>
-      <td><span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="UNDEAD" data-name="골탑">
       <td><a href="building/BONE_SPIRE.html">골탑</a></td>
       <td class="muted small">내정</td>
-      <td>언데드의 망루. 스켈레톤 궁수를 올려두면 사거리가 늘어납니다.</td>
+      <td class="note">언데드의 망루. 스켈레톤 궁수를 올려두면 사거리가 늘어납니다.</td>
       <td class="num">2칸</td>
       <td class="num">180</td>
-      <td><span class="r ore">광물 15</span> <span class="r wood">목재 70</span></td>
+      <td><span class="r"><i class="ore">광물 15</i><i class="wood">목재 70</i></span></td>
       <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="PIGLIN" data-name="괴수 우리">
       <td><a href="building/MENAGERIE.html">괴수 우리</a></td>
       <td class="muted small">내정</td>
-      <td>괴수를 사들이는 곳이자 워밴드의 유일한 기술 사다리입니다. 레벨이 호글린·블레이즈·가스트·위더 순으로 열립니다.</td>
+      <td class="note">괴수를 사들이는 곳이자 워밴드의 유일한 기술 사다리입니다. 레벨이 호글린·블레이즈·가스트·위더 순으로 열립니다.</td>
       <td class="num">5칸</td>
       <td class="num">240</td>
-      <td><span class="r wood">목재 140</span></td>
+      <td><span class="r"><i class="wood">목재 140</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="PIGLIN" data-name="금 교역소">
       <td><a href="building/BARTER_POST.html">금 교역소</a></td>
       <td class="muted small">내정</td>
-      <td>목재와 식량을 금(광물)으로 바꿉니다. 환율이 나쁩니다.</td>
+      <td class="note">목재와 식량을 금(광물)으로 바꿉니다. 환율이 나쁩니다.</td>
       <td class="num">4칸</td>
       <td class="num">200</td>
-      <td><span class="r wood">목재 110</span></td>
+      <td><span class="r"><i class="wood">목재 110</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="UNDEAD" data-name="납골당">
       <td><a href="building/OSSUARY.html">납골당</a></td>
       <td class="muted small">내정</td>
-      <td>언데드가 소유할 수 있는 시체의 수를 늘립니다. 이것이 곧 병력 상한입니다.</td>
+      <td class="note">언데드가 소유할 수 있는 시체의 수를 늘립니다. 이것이 곧 병력 상한입니다.</td>
       <td class="num">5칸</td>
       <td class="num">220</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 70</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 70</i></span></td>
       <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="대학">
       <td><a href="building/UNIVERSITY.html">대학</a></td>
       <td class="muted small">내정</td>
-      <td>능력치 상한을 올립니다. 목장(하한)과 짝입니다. 병종 교리도 여기서.</td>
+      <td class="note">능력치 상한을 올립니다. 목장(하한)과 짝입니다. 병종 교리도 여기서.</td>
       <td class="num">4칸</td>
       <td class="num">220</td>
-      <td><span class="r ore">광물 55</span> <span class="r wood">목재 140</span></td>
+      <td><span class="r"><i class="ore">광물 55</i><i class="wood">목재 140</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="병원">
       <td><a href="building/HOSPITAL.html">병원</a></td>
       <td class="muted small">내정</td>
-      <td>사망할 병사를 확률적으로 수용해 치료합니다. 베테랑을 지키는 수단.</td>
+      <td class="note">사망할 병사를 확률적으로 수용해 치료합니다. 베테랑을 지키는 수단.</td>
       <td class="num">3칸</td>
       <td class="num">180</td>
-      <td><span class="r ore">광물 30</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 30</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="비행장">
       <td><a href="building/AIRFIELD.html">비행장</a></td>
       <td class="muted small">내정</td>
-      <td>하늘로 올라가는 모든 병종. 지형을 통째로 무시하고 건너갑니다.</td>
+      <td class="note">하늘로 올라가는 모든 병종. 지형을 통째로 무시하고 건너갑니다.</td>
       <td class="num">4칸</td>
       <td class="num">260</td>
-      <td><span class="r ore">광물 55</span> <span class="r wood">목재 130</span></td>
+      <td><span class="r"><i class="ore">광물 55</i><i class="wood">목재 130</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="PIGLIN" data-name="수용소">
       <td><a href="building/PENS.html">수용소</a></td>
       <td class="muted small">내정</td>
-      <td>납치한 주민을 가둡니다. 레벨이 곧 동시 수용 인원입니다.</td>
+      <td class="note">납치한 주민을 가둡니다. 레벨이 곧 동시 수용 인원입니다.</td>
       <td class="num">5칸</td>
       <td class="num">260</td>
-      <td><span class="r wood">목재 130</span></td>
+      <td><span class="r"><i class="wood">목재 130</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="연구소">
       <td><a href="building/LABORATORY.html">연구소</a></td>
       <td class="muted small">내정</td>
-      <td>세 가지 영구 연구. 병종 · 행정 · 개척에서 각각 하나씩 고릅니다.</td>
+      <td class="note">세 가지 영구 연구. 병종 · 행정 · 개척에서 각각 하나씩 고릅니다.</td>
       <td class="num">3칸</td>
       <td class="num">190</td>
-      <td><span class="r ore">광물 45</span> <span class="r wood">목재 120</span></td>
+      <td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 120</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="용병 시장">
       <td><a href="building/MERCENARY_MARKET.html">용병 시장</a></td>
       <td class="muted small">내정</td>
-      <td>주민의 모집소. 골렘을 세우고 우민을 고용합니다. 고용 한도는 주민 수의 절반입니다.</td>
+      <td class="note">주민의 모집소. 골렘을 세우고 우민을 고용합니다. 고용 한도는 주민 수의 절반입니다.</td>
       <td class="num">4칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 20</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 20</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="우물">
       <td><a href="building/WELL.html">우물</a></td>
       <td class="muted small">내정</td>
-      <td>인구 증가 속도를 올립니다. 중첩되지만 4레벨에서 상한입니다.</td>
+      <td class="note">인구 증가 속도를 올립니다. 중첩되지만 4레벨에서 상한입니다.</td>
       <td class="num">2칸</td>
       <td class="num">90</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 25</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 25</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="UNDEAD" data-name="제단">
       <td><a href="building/ALTAR.html">제단</a></td>
       <td class="muted small">내정</td>
-      <td>시체를 병사로 세웁니다. 훈련은 없고, 값은 시체 그 자체입니다.</td>
+      <td class="note">시체를 병사로 세웁니다. 훈련은 없고, 값은 시체 그 자체입니다.</td>
       <td class="num">4칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 15</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 15</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="종루">
       <td><a href="building/BELL_TOWER.html">종루</a></td>
       <td class="muted small">내정</td>
-      <td>주민의 망루. 우민을 올려두면 사거리가 늘어납니다.</td>
+      <td class="note">주민의 망루. 우민을 올려두면 사거리가 늘어납니다.</td>
       <td class="num">2칸</td>
       <td class="num">180</td>
-      <td><span class="r ore">광물 15</span> <span class="r wood">목재 70</span></td>
+      <td><span class="r"><i class="ore">광물 15</i><i class="wood">목재 70</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="주민 집">
       <td><a href="building/VILLAGER_HOUSE.html">주민 집</a></td>
       <td class="muted small">내정</td>
-      <td>주민이 살고 아이가 태어나는 곳. 수용 한도가 곧 인구 상한입니다.</td>
+      <td class="note">주민이 살고 아이가 태어나는 곳. 수용 한도가 곧 인구 상한입니다.</td>
       <td class="num">3칸</td>
       <td class="num">150</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="집">
       <td><a href="building/HOUSE.html">집</a></td>
       <td class="muted small">내정</td>
-      <td>인구 수용 한도를 올립니다. 사람이 곧 노동과 병력입니다.</td>
+      <td class="note">인구 수용 한도를 올립니다. 사람이 곧 노동과 병력입니다.</td>
       <td class="num">3칸</td>
       <td class="num">150</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="감자밭">
       <td><a href="building/POTATO_FARM.html">감자밭</a></td>
       <td class="muted small">생산</td>
-      <td>산악 계단밭. 광산과 함께 두면 산이 자급합니다.</td>
+      <td class="note">산악 계단밭. 광산과 함께 두면 산이 자급합니다.</td>
       <td class="num">5칸</td>
       <td class="num">170</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="과수원">
       <td><a href="building/ORCHARD.html">과수원</a></td>
       <td class="muted small">생산</td>
-      <td>좁은 땅에 심는 소규모 식량원. 인부 둘이면 돌아갑니다.</td>
+      <td class="note">좁은 땅에 심는 소규모 식량원. 인부 둘이면 돌아갑니다.</td>
       <td class="num">3칸</td>
       <td class="num">130</td>
-      <td><span class="r wood">목재 55</span></td>
+      <td><span class="r"><i class="wood">목재 55</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER UNDEAD" data-name="광산">
       <td><a href="building/MINE.html">광산</a></td>
       <td class="muted small">생산</td>
-      <td>광물. 병영·무기고·공성 무기가 전부 여기서 나옵니다.</td>
+      <td class="note">광물. 병영·무기고·공성 무기가 전부 여기서 나옵니다.</td>
       <td class="num">3칸</td>
       <td class="num">150</td>
-      <td><span class="r ore">광물 20</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 20</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="낚시터">
       <td><a href="building/FISHERY.html">낚시터</a></td>
       <td class="muted small">생산</td>
-      <td>특화 식량원 중 최고. 호수는 군대도 건물도 못 두는 땅입니다.</td>
+      <td class="note">특화 식량원 중 최고. 호수는 군대도 건물도 못 두는 땅입니다.</td>
       <td class="num">4칸</td>
       <td class="num">140</td>
-      <td><span class="r wood">목재 80</span></td>
+      <td><span class="r"><i class="wood">목재 80</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="PIGLIN" data-name="네더와트 농장">
       <td><a href="building/WART_FARM.html">네더와트 농장</a></td>
       <td class="muted small">생산</td>
-      <td>피글린의 유일한 식량원. 밀 농장보다 한참 못합니다.</td>
+      <td class="note">피글린의 유일한 식량원. 밀 농장보다 한참 못합니다.</td>
       <td class="num">7칸</td>
       <td class="num">220</td>
-      <td><span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="목장">
       <td><a href="building/RANCH.html">목장</a></td>
       <td class="muted small">생산</td>
-      <td>식량은 적지만, 이후 태어나는 사람의 능력치 하한을 올립니다.</td>
+      <td class="note">식량은 적지만, 이후 태어나는 사람의 능력치 하한을 올립니다.</td>
       <td class="num">5칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="밀 농장">
       <td><a href="building/FARM.html">밀 농장</a></td>
       <td class="muted small">생산</td>
-      <td>어디서나 지을 수 있는 주력 식량원. 가장 효율이 좋고 가장 넓습니다.</td>
+      <td class="note">어디서나 지을 수 있는 주력 식량원. 가장 효율이 좋고 가장 넓습니다.</td>
       <td class="num">7칸</td>
       <td class="num">250</td>
-      <td><span class="r wood">목재 100</span></td>
+      <td><span class="r"><i class="wood">목재 100</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="밀밭">
       <td><a href="building/WHEAT_FIELD.html">밀밭</a></td>
       <td class="muted small">생산</td>
-      <td>주민의 주력 식량원. 한 번 농부가 된 주민은 다른 일을 못 합니다.</td>
+      <td class="note">주민의 주력 식량원. 한 번 농부가 된 주민은 다른 일을 못 합니다.</td>
       <td class="num">7칸</td>
       <td class="num">250</td>
-      <td><span class="r wood">목재 100</span></td>
+      <td><span class="r"><i class="wood">목재 100</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="PIGLIN" data-name="벌목대">
       <td><a href="building/LOGGING_CAMP.html">벌목대</a></td>
       <td class="muted small">생산</td>
-      <td>피글린의 목재원. 모든 건물이 목재라 여기가 곧 국력입니다.</td>
+      <td class="note">피글린의 목재원. 모든 건물이 목재라 여기가 곧 국력입니다.</td>
       <td class="num">5칸</td>
       <td class="num">200</td>
-      <td><span class="r wood">목재 80</span></td>
+      <td><span class="r"><i class="wood">목재 80</i></span></td>
       <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER UNDEAD" data-name="벌목장">
       <td><a href="building/LUMBER_CAMP.html">벌목장</a></td>
       <td class="muted small">생산</td>
-      <td>목재. 거의 모든 건물의 주재료입니다.</td>
+      <td class="note">목재. 거의 모든 건물의 주재료입니다.</td>
       <td class="num">3칸</td>
       <td class="num">150</td>
-      <td><span class="r ore">광물 10</span> <span class="r wood">목재 40</span></td>
+      <td><span class="r"><i class="ore">광물 10</i><i class="wood">목재 40</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="선인장 농장">
       <td><a href="building/CACTUS_FARM.html">선인장 농장</a></td>
       <td class="muted small">생산</td>
-      <td>산출은 최악이지만 가장 쌉니다. 사막에 갇혔을 때의 답.</td>
+      <td class="note">산출은 최악이지만 가장 쌉니다. 사막에 갇혔을 때의 답.</td>
       <td class="num">6칸</td>
       <td class="num">150</td>
-      <td><span class="r wood">목재 35</span></td>
+      <td><span class="r"><i class="wood">목재 35</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD PIGLIN" data-name="시장">
       <td><a href="building/MARKET.html">시장</a></td>
       <td class="muted small">생산</td>
-      <td>상인 전직과 자원 외교를 여는 전제 조건입니다.</td>
+      <td class="note">상인 전직과 자원 외교를 여는 전제 조건입니다.</td>
       <td class="num">3칸</td>
       <td class="num">170</td>
-      <td><span class="r ore">광물 20</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 20</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="에메랄드 광산">
       <td><a href="building/EMERALD_MINE.html">에메랄드 광산</a></td>
       <td class="muted small">생산</td>
-      <td>주민의 광물원. 에메랄드가 주민의 돈입니다.</td>
+      <td class="note">주민의 광물원. 에메랄드가 주민의 돈입니다.</td>
       <td class="num">5칸</td>
       <td class="num">260</td>
-      <td><span class="r wood">목재 120</span></td>
+      <td><span class="r"><i class="wood">목재 120</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="열매 농장">
       <td><a href="building/BERRY_FARM.html">열매 농장</a></td>
       <td class="muted small">생산</td>
-      <td>설원에서 얻을 수 있는 유일한 식량원.</td>
+      <td class="note">설원에서 얻을 수 있는 유일한 식량원.</td>
       <td class="num">4칸</td>
       <td class="num">150</td>
-      <td><span class="r wood">목재 70</span></td>
+      <td><span class="r"><i class="wood">목재 70</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="VILLAGER" data-name="제재소">
       <td><a href="building/SAWMILL.html">제재소</a></td>
       <td class="muted small">생산</td>
-      <td>주민의 목재원. 목수는 평생 목수입니다.</td>
+      <td class="note">주민의 목재원. 목수는 평생 목수입니다.</td>
       <td class="num">5칸</td>
       <td class="num">240</td>
-      <td><span class="r wood">목재 110</span></td>
+      <td><span class="r"><i class="wood">목재 110</i></span></td>
       <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="교회">
       <td><a href="building/CHURCH.html">교회</a></td>
       <td class="muted small">전투</td>
-      <td>수도사 · 성직자 · 추기경. 치유와 퇴마를 맡습니다.</td>
+      <td class="note">수도사 · 성직자 · 추기경. 치유와 퇴마를 맡습니다.</td>
       <td class="num">3칸</td>
       <td class="num">240</td>
-      <td><span class="r ore">광물 30</span> <span class="r wood">목재 110</span></td>
+      <td><span class="r"><i class="ore">광물 30</i><i class="wood">목재 110</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="마굿간">
       <td><a href="building/STABLE.html">마굿간</a></td>
       <td class="muted small">전투</td>
-      <td>기병 전담. 말을 타는 병종은 전부 여기서 나옵니다.</td>
+      <td class="note">기병 전담. 말을 타는 병종은 전부 여기서 나옵니다.</td>
       <td class="num">3칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 30</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 30</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="마탑">
       <td><a href="building/MAGE_TOWER.html">마탑</a></td>
       <td class="muted small">전투</td>
-      <td>견습생 · 마법사, 그리고 화염 · 얼음 · 강령 중 자유 선택.</td>
+      <td class="note">견습생 · 마법사, 그리고 화염 · 얼음 · 강령 중 자유 선택.</td>
       <td class="num">2칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 45</span> <span class="r wood">목재 100</span></td>
+      <td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 100</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="망루">
       <td><a href="building/WATCHTOWER.html">망루</a></td>
       <td class="muted small">전투</td>
-      <td>주둔한 병사의 사거리를 늘립니다. 누구를 태우냐가 중요합니다.</td>
+      <td class="note">주둔한 병사의 사거리를 늘립니다. 누구를 태우냐가 중요합니다.</td>
       <td class="num">2칸</td>
       <td class="num">180</td>
-      <td><span class="r ore">광물 15</span> <span class="r wood">목재 70</span></td>
+      <td><span class="r"><i class="ore">광물 15</i><i class="wood">목재 70</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD" data-name="무기고">
       <td><a href="building/SMITHY.html">무기고</a></td>
       <td class="muted small">전투</td>
-      <td>기술 단계. 레벨이 오를수록 상위 티어가 열리고, 연구도 여기서 삽니다.</td>
+      <td class="note">기술 단계. 레벨이 오를수록 상위 티어가 열리고, 연구도 여기서 삽니다.</td>
       <td class="num">3칸</td>
       <td class="num">220</td>
-      <td><span class="r ore">광물 50</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 50</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="발리스타">
       <td><a href="building/BALLISTA.html">발리스타</a></td>
       <td class="muted small">전투</td>
-      <td>자체 사거리를 가진 고정 병기. 탑승자가 누구든 성능은 같습니다.</td>
+      <td class="note">자체 사거리를 가진 고정 병기. 탑승자가 누구든 성능은 같습니다.</td>
       <td class="num">2칸</td>
       <td class="num">160</td>
-      <td><span class="r ore">광물 45</span> <span class="r wood">목재 90</span></td>
+      <td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 90</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="병영">
       <td><a href="building/BARRACKS.html">병영</a></td>
       <td class="muted small">전투</td>
-      <td>보병을 훈련합니다. 없으면 징집 자체가 불가능합니다.</td>
+      <td class="note">보병을 훈련합니다. 없으면 징집 자체가 불가능합니다.</td>
       <td class="num">3칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 60</span> <span class="r wood">목재 80</span></td>
+      <td><span class="r"><i class="ore">광물 60</i><i class="wood">목재 80</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD PIGLIN" data-name="장벽">
       <td><a href="building/WALL.html">장벽</a></td>
       <td class="muted small">전투</td>
-      <td>적의 진로를 막습니다. 시작점과 끝점을 찍어 선으로 깝니다.</td>
+      <td class="note">적의 진로를 막습니다. 시작점과 끝점을 찍어 선으로 깝니다.</td>
       <td class="num">1칸</td>
       <td class="num">120</td>
-      <td><span class="r ore">광물 5</span> <span class="r wood">목재 25</span></td>
+      <td><span class="r"><i class="ore">광물 5</i><i class="wood">목재 25</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="체육관">
       <td><a href="building/GYMNASIUM.html">체육관</a></td>
       <td class="muted small">전투</td>
-      <td>격투가 · 무술가. 맨손 격투 계열입니다.</td>
+      <td class="note">격투가 · 무술가. 맨손 격투 계열입니다.</td>
       <td class="num">3칸</td>
       <td class="num">220</td>
-      <td><span class="r ore">광물 35</span> <span class="r wood">목재 80</span></td>
+      <td><span class="r"><i class="ore">광물 35</i><i class="wood">목재 80</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER" data-name="훈련소">
       <td><a href="building/TRAINING_GROUND.html">훈련소</a></td>
       <td class="muted small">전투</td>
-      <td>신병이 건물 레벨만큼 높은 계급으로 나옵니다.</td>
+      <td class="note">신병이 건물 레벨만큼 높은 계급으로 나옵니다.</td>
       <td class="num">4칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 40</span> <span class="r wood">목재 110</span></td>
+      <td><span class="r"><i class="ore">광물 40</i><i class="wood">목재 110</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD PIGLIN" data-name="개척지">
       <td><a href="building/OUTPOST.html">개척지</a></td>
       <td class="muted small">내정</td>
-      <td>완공되면 그 자리가 새 정착지가 됩니다. 원정대가 있어야 짓습니다.</td>
+      <td class="note">완공되면 그 자리가 새 정착지가 됩니다. 원정대가 있어야 짓습니다.</td>
       <td class="num">1칸</td>
       <td class="num">240</td>
-      <td><span class="r ore">광물 80</span> <span class="r food">식량 60</span> <span class="r wood">목재 160</span></td>
+      <td><span class="r"><i class="ore">광물 80</i><i class="food">식량 60</i><i class="wood">목재 160</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD PIGLIN" data-name="도로">
       <td><a href="building/ROAD.html">도로</a></td>
       <td class="muted small">내정</td>
-      <td>필드 1칸에 깝니다. 그 칸을 지나는 행군이 빨라집니다.</td>
+      <td class="note">필드 1칸에 깝니다. 그 칸을 지나는 행군이 빨라집니다.</td>
       <td class="num">1칸</td>
       <td class="num">40</td>
-      <td><span class="r ore">광물 4</span> <span class="r wood">목재 6</span></td>
+      <td><span class="r"><i class="ore">광물 4</i><i class="wood">목재 6</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER UNDEAD PIGLIN" data-name="항구">
       <td><a href="building/HARBOUR.html">항구</a></td>
       <td class="muted small">내정</td>
-      <td>바다·호수 위에만. 원정대가 올라서면 배를 타고 물을 건넙니다.</td>
+      <td class="note">바다·호수 위에만. 원정대가 올라서면 배를 타고 물을 건넙니다.</td>
       <td class="num">1칸</td>
       <td class="num">160</td>
-      <td><span class="r ore">광물 20</span> <span class="r wood">목재 60</span></td>
+      <td><span class="r"><i class="ore">광물 20</i><i class="wood">목재 60</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill und" href="race/UNDEAD.html">언데드</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr>
     <tr data-races="OUTLANDER VILLAGER PIGLIN" data-name="보급기지">
       <td><a href="building/DEPOT.html">보급기지</a></td>
       <td class="muted small">전투</td>
-      <td>필드에 짓는 전진기지. 근처 원정대가 본진 식량을 먹고 보급도 받습니다.</td>
+      <td class="note">필드에 짓는 전진기지. 근처 원정대가 본진 식량을 먹고 보급도 받습니다.</td>
       <td class="num">1칸</td>
       <td class="num">200</td>
-      <td><span class="r ore">광물 40</span> <span class="r food">식량 30</span> <span class="r wood">목재 80</span></td>
+      <td><span class="r"><i class="ore">광물 40</i><i class="food">식량 30</i><i class="wood">목재 80</i></span></td>
       <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a><a class="pill vil" href="race/VILLAGER.html">주민</a><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
     </tr></tbody></table>
+</div>
 
 <script>
 (function () {
   var q = document.getElementById('q');
+  var out = document.getElementById('count');
   var rows = [].slice.call(document.querySelectorAll('#tbl tbody tr'));
   var race = '';
   function apply() {
-    var t = q.value.trim();
+    var t = q.value.trim(), n = 0;
     rows.forEach(function (r) {
-      var okName = !t || r.dataset.name.indexOf(t) !== -1;
-      var okRace = !race || r.dataset.races.split(' ').indexOf(race) !== -1;
-      r.hidden = !(okName && okRace);
+      var ok = (!t || r.dataset.name.indexOf(t) !== -1)
+            && (!race || r.dataset.races.split(' ').indexOf(race) !== -1);
+      r.hidden = !ok;
+      if (ok) n++;
     });
+    out.textContent = n + ' / ' + rows.length;
   }
   q.addEventListener('input', apply);
   [].slice.call(document.querySelectorAll('.races .pill')).forEach(function (b) {
@@ -461,16 +471,17 @@
       apply();
     });
   });
+  apply();
 })();
 </script>
 <section><h2>정착지 중심</h2>
-<p class="sub">건설 메뉴에는 없습니다. 정착지와 함께 생기고, 무너지면 그 나라가 끝납니다.</p>
+<p class="sub">건설 메뉴에 없는 건물. 정착지와 함께 생기고 무너지면 그 나라가 끝난다.</p>
 <div class="chips"><a class="chip" href="building/TOWN_HALL.html">타운홀</a><a class="chip" href="building/BASTION.html">바스티온</a><a class="chip" href="building/MAUSOLEUM.html">영묘</a><a class="chip" href="building/VILLAGER_HALL.html">주민 회관</a></div></section>
 
 </main>
 <footer>
-  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
-  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+  <span>마인크래프트 위의 타일 전략</span>
+  <span>표와 수치는 게임 데이터에서 그대로 뽑아 씁니다</span>
 </footer>
 </body>
 </html>

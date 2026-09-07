@@ -3,44 +3,50 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>연구 · 마인토피아 TerritoryWar</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header>
-  <a class="brand" href="index.html">마인토피아 <b>TerritoryWar</b></a>
+<header class="bar">
+  <a class="brand" href="index.html"><span>마인토피아</span> TerritoryWar</a>
   <nav><a href="index.html">소개</a><a href="controls.html">조작</a><a href="races.html">종족</a><a href="buildings.html">건물</a><a href="units.html">병종</a><a href="research.html" class="on">연구</a></nav>
 </header>
 <main>
 
-<h1>연구</h1>
-<p class="sub">세 갈래가 서로 다른 건물에 붙어 있고, 하는 일도 다릅니다.</p>
+<header class="page-head">
+  <p class="kicker">연구</p>
+  <h1>세 갈래의 기술</h1>
+  <p class="lead">서로 다른 건물에 붙어 있고 하는 일도 다르다.
+     무기고는 병종을 강하게 만들고 연구소는 갈래마다 하나를 고르게 하며
+     대학은 병종별 특기를 가르친다.</p>
+</header>
 
 <section>
   <h2>무기고 연구 <span class="muted">전 병종 강화</span></h2>
-  <p class="sub">무기고(피글린은 괴수 우리)에서 삽니다. 인부 없이 진행되고,
-     건물 레벨이 곧 속도입니다. 각 3단계까지.</p>
-  <table class="cmds"><tbody><tr><td><b>검술 연마</b></td><td>근접 병종 공격력 10% 상승</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr><tr><td><b>사격 훈련</b></td><td>원거리 병종 공격력 10% 상승</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr><tr><td><b>갑주 제작</b></td><td>모든 병종 방어력 +1.5</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr><tr><td><b>전열 훈련</b></td><td>모든 병종 공격 속도 8% 상승</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr><tr><td><b>체력 단련</b></td><td>모든 병종 최대 체력 10% 상승</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr><tr><td><b>행군 훈련</b></td><td>모든 병종 이동 속도 6% 상승</td><td class='muted small'>Lv1 광물 40 목재 25 · Lv2 광물 80 목재 50 · Lv3 광물 120 목재 75</td></tr></tbody></table>
+  <p class="sub">무기고에서 산다. 피글린은 괴수 우리가 그 자리를 대신한다.
+     인부 없이 진행되고 건물 레벨이 곧 속도. 각 3단계까지 올라간다.</p>
+  <table class="cmds"><tbody><tr><th>검술 연마</th><td>근접 병종 공격력 10% 상승</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr><tr><th>사격 훈련</th><td>원거리 병종 공격력 10% 상승</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr><tr><th>갑주 제작</th><td>모든 병종 방어력 +1.5</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr><tr><th>전열 훈련</th><td>모든 병종 공격 속도 8% 상승</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr><tr><th>체력 단련</th><td>모든 병종 최대 체력 10% 상승</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr><tr><th>행군 훈련</th><td>모든 병종 이동 속도 6% 상승</td><td class='muted small'>Lv1 광물 40목재 25 · Lv2 광물 80목재 50 · Lv3 광물 120목재 75</td></tr></tbody></table>
 </section>
 
 <section>
-  <h2>연구소 <span class="muted">갈래마다 하나만</span></h2>
-  <p class="sub">이방인 전용 건물입니다. 갈래마다 딱 하나를 고르고, 고르면 바꿀 수 없습니다.
-     다른 종족은 연구소를 지을 수 없는 대신, 연구가 걸린 건물 레벨 제한을 받지 않습니다.</p>
-  <h3>병종 연구 <span class='muted'>이 나라에만 있는 건물과 그 병종 계열을 엽니다</span></h3><table class='cmds'><tbody><tr><td><b>체육관 설립</b></td><td>체육관 해금 - 격투가(3) · 무술가(4)</td><td><span class="r ore">광물 60</span> <span class="r wood">목재 40</span></td></tr><tr><td><b>교회 설립</b></td><td>교회 해금 - 수도사(2) · 성직자(3) · 추기경(4)</td><td><span class="r ore">광물 60</span> <span class="r wood">목재 40</span></td></tr><tr><td><b>마탑 설립</b></td><td>마탑 해금 - 견습생(2) · 마법사(3), 4티어는 화염 · 얼음 · 강령 중 자유 선택</td><td><span class="r ore">광물 60</span> <span class="r wood">목재 40</span></td></tr></tbody></table><h3>행정 연구 <span class='muted'>정착지가 굴러가는 규칙을 하나 바꿉니다</span></h3><table class='cmds'><tbody><tr><td><b>작업 편성</b></td><td>모든 생산 건물의 인부 최대치 +1</td><td><span class="r ore">광물 40</span> <span class="r wood">목재 60</span></td></tr><tr><td><b>공동 주택</b></td><td>집 한 채가 수용하는 인구 +1</td><td><span class="r ore">광물 40</span> <span class="r wood">목재 60</span></td></tr><tr><td><b>현지 조달</b></td><td>자국 영토에 있는 병력의 식량 소모 20% 감소</td><td><span class="r ore">광물 40</span> <span class="r wood">목재 60</span></td></tr></tbody></table><h3>개척 연구 <span class='muted'>쥐고 있는 땅에서 더 뽑아냅니다</span></h3><table class='cmds'><tbody><tr><td><b>풍토 적응</b></td><td>지형 보정으로 늘어나는 생산량을 20% 더 받습니다</td><td><span class="r ore">광물 50</span> <span class="r wood">목재 50</span></td></tr><tr><td><b>개간</b></td><td>지형 보정으로 줄어드는 생산량을 20% 덜 받습니다</td><td><span class="r ore">광물 50</span> <span class="r wood">목재 50</span></td></tr><tr><td><b>전령망</b></td><td>필드맵에서 자국 깃발 근처를 지날 때 행군 속도 50% 상승</td><td><span class="r ore">광물 50</span> <span class="r wood">목재 50</span></td></tr></tbody></table><h3>산업 연구 <span class='muted'>건물 한 갈래를 남들보다 한 단계 더 올립니다</span></h3><table class='cmds'><tbody><tr><td><b>병기창 확장</b></td><td>무기고 4레벨 해금 - 5티어 병종을 생산할 수 있게 됩니다</td><td><span class="r ore">광물 90</span> <span class="r wood">목재 70</span></td></tr><tr><td><b>공정 개선</b></td><td>모든 생산 건물 4레벨 해금 - 광산 · 농장 · 벌목장 등</td><td><span class="r ore">광물 90</span> <span class="r wood">목재 70</span></td></tr><tr><td><b>주택 확장</b></td><td>집 4레벨 해금 - 정착지 인구 상한이 크게 늘어납니다</td><td><span class="r ore">광물 90</span> <span class="r wood">목재 70</span></td></tr></tbody></table><h3>사격 연구 <span class='muted'>쌓는 무기 세 갈래 중 하나를 골라 올립니다</span></h3><table class='cmds'><tbody><tr><td><b>살촍 개량</b></td><td>활 계열 피해 20% 증가 - 궁수 · 궁기병 · 사냥꾼 등</td><td><span class="r ore">광물 55</span> <span class="r wood">목재 45</span></td></tr><tr><td><b>감개 개량</b></td><td>쇠뇌 · 총 재장전 20% 단축 - 쓰는 속도가 그만큼 빨라집니다</td><td><span class="r ore">광물 55</span> <span class="r wood">목재 45</span></td></tr><tr><td><b>툼사 교범</b></td><td>투척류 명중률 상승 - 투석병 · 투창병 · 척탄병</td><td><span class="r ore">광물 55</span> <span class="r wood">목재 45</span></td></tr></tbody></table>
+  <h2>연구소 <span class="muted">갈래마다 하나</span></h2>
+  <p class="sub">이방인만 짓는 건물. 갈래마다 딱 하나를 고르고 한번 고르면 못 바꾼다.
+     다른 종족은 연구소가 없는 대신 연구가 걸린 건물 레벨 제한을 받지 않는다.</p>
+  <h3>병종 연구 <span class='muted'>이 나라에만 있는 건물과 그 병종 계열을 엽니다</span></h3><table class='cmds'><tbody><tr><th>체육관 설립</th><td>체육관 해금 - 격투가(3) · 무술가(4)</td><td><span class="r"><i class="ore">광물 60</i><i class="wood">목재 40</i></span></td></tr><tr><th>교회 설립</th><td>교회 해금 - 수도사(2) · 성직자(3) · 추기경(4)</td><td><span class="r"><i class="ore">광물 60</i><i class="wood">목재 40</i></span></td></tr><tr><th>마탑 설립</th><td>마탑 해금 - 견습생(2) · 마법사(3), 4티어는 화염 · 얼음 · 강령 중 자유 선택</td><td><span class="r"><i class="ore">광물 60</i><i class="wood">목재 40</i></span></td></tr></tbody></table><h3>행정 연구 <span class='muted'>정착지가 굴러가는 규칙을 하나 바꿉니다</span></h3><table class='cmds'><tbody><tr><th>작업 편성</th><td>모든 생산 건물의 인부 최대치 +1</td><td><span class="r"><i class="ore">광물 40</i><i class="wood">목재 60</i></span></td></tr><tr><th>공동 주택</th><td>집 한 채가 수용하는 인구 +1</td><td><span class="r"><i class="ore">광물 40</i><i class="wood">목재 60</i></span></td></tr><tr><th>현지 조달</th><td>자국 영토에 있는 병력의 식량 소모 20% 감소</td><td><span class="r"><i class="ore">광물 40</i><i class="wood">목재 60</i></span></td></tr></tbody></table><h3>개척 연구 <span class='muted'>쥐고 있는 땅에서 더 뽑아냅니다</span></h3><table class='cmds'><tbody><tr><th>풍토 적응</th><td>지형 보정으로 늘어나는 생산량을 20% 더 받습니다</td><td><span class="r"><i class="ore">광물 50</i><i class="wood">목재 50</i></span></td></tr><tr><th>개간</th><td>지형 보정으로 줄어드는 생산량을 20% 덜 받습니다</td><td><span class="r"><i class="ore">광물 50</i><i class="wood">목재 50</i></span></td></tr><tr><th>전령망</th><td>필드맵에서 자국 깃발 근처를 지날 때 행군 속도 50% 상승</td><td><span class="r"><i class="ore">광물 50</i><i class="wood">목재 50</i></span></td></tr></tbody></table><h3>산업 연구 <span class='muted'>건물 한 갈래를 남들보다 한 단계 더 올립니다</span></h3><table class='cmds'><tbody><tr><th>병기창 확장</th><td>무기고 4레벨 해금 - 5티어 병종을 생산할 수 있게 됩니다</td><td><span class="r"><i class="ore">광물 90</i><i class="wood">목재 70</i></span></td></tr><tr><th>공정 개선</th><td>모든 생산 건물 4레벨 해금 - 광산 · 농장 · 벌목장 등</td><td><span class="r"><i class="ore">광물 90</i><i class="wood">목재 70</i></span></td></tr><tr><th>주택 확장</th><td>집 4레벨 해금 - 정착지 인구 상한이 크게 늘어납니다</td><td><span class="r"><i class="ore">광물 90</i><i class="wood">목재 70</i></span></td></tr></tbody></table><h3>사격 연구 <span class='muted'>쌓는 무기 세 갈래 중 하나를 골라 올립니다</span></h3><table class='cmds'><tbody><tr><th>살촍 개량</th><td>활 계열 피해 20% 증가 - 궁수 · 궁기병 · 사냥꾼 등</td><td><span class="r"><i class="ore">광물 55</i><i class="wood">목재 45</i></span></td></tr><tr><th>감개 개량</th><td>쇠뇌 · 총 재장전 20% 단축 - 쓰는 속도가 그만큼 빨라집니다</td><td><span class="r"><i class="ore">광물 55</i><i class="wood">목재 45</i></span></td></tr><tr><th>툼사 교범</th><td>투척류 명중률 상승 - 투석병 · 투창병 · 척탄병</td><td><span class="r"><i class="ore">광물 55</i><i class="wood">목재 45</i></span></td></tr></tbody></table>
 </section>
 
 <section>
   <h2>대학 교리 <span class="muted">병종별 특기</span></h2>
-  <p class="sub">한 번 가르치면 늘 참입니다. 장비가 바뀌는 교리는 이미 있는 병사에게도
-     소급 적용됩니다.</p>
-  <table class="cmds"><tbody><tr><td><b>방패 훈련</b></td><td>검병에게 방패를 지급하고 갑옷을 강화합니다</td><td class='muted small'>검병</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>근접 교전술</b></td><td>투창병이 근접전을 할 수 있게 되고 갑옷이 강화됩니다</td><td class='muted small'>투창병</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>밀집 창진</b></td><td>모든 창병 계열의 공격이 인접한 최대 2명에게 50% 피해를 함께 입힙니다</td><td class='muted small'>할버드병, 창병, 방패 창병, 장창병, 수호자, 호글린, 좀비 주민</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>기병 방패술</b></td><td>근접 기병과 철기병에게 방패를 지급하고 갑옷을 강화합니다 (궁기병 제외)</td><td class='muted small'>검기병, 창기병, 철기병, 낙타 기수, 곰 기수, 판다 기수, 염소 기수</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>창병 갑주</b></td><td>모든 창병 계열의 갑옷을 강화합니다</td><td class='muted small'>할버드병, 창병, 방패 창병, 장창병, 수호자, 호글린, 좀비 주민</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>쌍도끼 전투술</b></td><td>도끼병 · 광전사가 왼손에 도끼를 하나 더 들어 공격 속도가 오릅니다</td><td class='muted small'>도끼병, 광전사</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>장궁 사격술</b></td><td>궁수 · 쇠뇌수 · 방패 쇠뇌수 · 궁기병의 사거리가 늘어납니다</td><td class='muted small'>궁수, 쇠뇌수, 궁기병, 방패 쇠뇌수</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>연발 쇠뇌</b></td><td>쇠뇌수 · 방패 쇠뇌수 · 군견병이 좌우 10° 로 2발을 더 쏘고 (전탄 100%) 갑옷이 강화됩니다</td><td class='muted small'>쇠뇌수, 군견병, 방패 쇠뇌수</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr><tr><td><b>사격 교범</b></td><td>총기 계열의 명중률이 소폭 오릅니다</td><td class='muted small'>총기병, 총병, 방패 총병, 저격병</td><td><span class="r ore">광물 45</span> <span class="r wood">목재 55</span></td></tr></tbody></table>
+  <p class="sub">한 번 가르치면 늘 참. 장비가 바뀌는 교리는 이미 세워둔 병사에게도
+     소급 적용된다.</p>
+  <table class="cmds"><tbody><tr><th>방패 훈련</th><td>검병에게 방패를 지급하고 갑옷을 강화합니다</td><td class='muted small'>검병</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>근접 교전술</th><td>투창병이 근접전을 할 수 있게 되고 갑옷이 강화됩니다</td><td class='muted small'>투창병</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>밀집 창진</th><td>모든 창병 계열의 공격이 인접한 최대 2명에게 50% 피해를 함께 입힙니다</td><td class='muted small'>할버드병, 창병, 방패 창병, 장창병, 수호자, 호글린, 좀비 주민</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>기병 방패술</th><td>근접 기병과 철기병에게 방패를 지급하고 갑옷을 강화합니다 (궁기병 제외)</td><td class='muted small'>검기병, 창기병, 철기병, 낙타 기수, 곰 기수, 판다 기수, 염소 기수</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>창병 갑주</th><td>모든 창병 계열의 갑옷을 강화합니다</td><td class='muted small'>할버드병, 창병, 방패 창병, 장창병, 수호자, 호글린, 좀비 주민</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>쌍도끼 전투술</th><td>도끼병 · 광전사가 왼손에 도끼를 하나 더 들어 공격 속도가 오릅니다</td><td class='muted small'>도끼병, 광전사</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>장궁 사격술</th><td>궁수 · 쇠뇌수 · 방패 쇠뇌수 · 궁기병의 사거리가 늘어납니다</td><td class='muted small'>궁수, 쇠뇌수, 궁기병, 방패 쇠뇌수</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>연발 쇠뇌</th><td>쇠뇌수 · 방패 쇠뇌수 · 군견병이 좌우 10° 로 2발을 더 쏘고 (전탄 100%) 갑옷이 강화됩니다</td><td class='muted small'>쇠뇌수, 군견병, 방패 쇠뇌수</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr><tr><th>사격 교범</th><td>총기 계열의 명중률이 소폭 오릅니다</td><td class='muted small'>총기병, 총병, 방패 총병, 저격병</td><td><span class="r"><i class="ore">광물 45</i><i class="wood">목재 55</i></span></td></tr></tbody></table>
 </section>
 
 </main>
 <footer>
-  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
-  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+  <span>마인크래프트 위의 타일 전략</span>
+  <span>표와 수치는 게임 데이터에서 그대로 뽑아 씁니다</span>
 </footer>
 </body>
 </html>
