@@ -741,6 +741,9 @@ def unit_page(u, builds, units):
     # so on a page it is a column of the same number. Left out of the sheet.
     if (u.get("chargeBonus") or 1) > 1:
         stats.append(("돌격 배수", "x%s" % u["chargeBonus"], ""))
+    # Who it walks at when several are within reach.
+    if u.get("priority") and u["damage"] > 0:
+        stats.append(("공격 우선도", u["priority"], ""))
     if u["residents"] != 1:
         stats.append(("차지 인구", "%d명" % u["residents"], ""))
     if u["hireCost"]:
