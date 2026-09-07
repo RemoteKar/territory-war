@@ -157,6 +157,21 @@ def roster(items):
     return '<div class="chips">%s</div>' % "".join(bits)
 
 
+def defences(side):
+    """What the defender had built, for a record of a place rather than a field."""
+    works = side.get("defences") or []
+    walls = side.get("walls") or 0
+    if not works and not walls:
+        return ""
+    rows = ""
+    for w in works:
+        rows += "<tr><th>%s Lv%d</th><td>%d채 · 주둔 %d</td></tr>" % (
+            e(w["building"]), w.get("bestLevel", 1), w["count"], w.get("garrison", 0))
+    if walls:
+        rows += "<tr><th>성벽</th><td>%d칸</td></tr>" % walls
+    return '<h4>방어 시설</h4><table class="facts"><tbody>%s</tbody></table>' % rows
+
+
 def battles(records):
     """One card a battle, one block a side.
 
@@ -199,7 +214,7 @@ def battles(records):
         <h4>편성</h4>%s
         %s
         <h4>생존</h4>%s
-        %s
+        %s%s
       </div>""" % (
                 " won" if won else "",
                 e(s0["nation"]), e(who), e(s0["race"]),
@@ -212,18 +227,22 @@ def battles(records):
                 if s0.get("reinforced") else "",
                 roster(s0.get("survivors")),
                 ('<p class="muted small">연구 : %s</p>' % e(" · ".join(studies)))
-                if studies else "")
+                if studies else "",
+                defences(s0))
         cards += """
   <article class="battle">
     <header>
       <span class="tag">%s</span>
       <h2>%s</h2>
-      <span class="muted small">%s · %d초</span>
+      <span class="muted small">%s · %d초%s</span>
     </header>
     <div class="sides">%s</div>
   </article>""" % (e(b["kind"]), e(b.get("where") or "-"),
                    e((b.get("closed") or "")[:16].replace("T", " ")),
-                   b.get("seconds", 0), sides)
+                   b.get("seconds", 0),
+                   " · 미결" if b.get("outcome") == "미결" else
+                   (" · 무승부" if b.get("outcome") == "무승부" else ""),
+                   sides)
 
     body = """
 <header class="page-head">
@@ -512,8 +531,9 @@ PLAYSTYLE = {
         "부대까지 소급해 바꾼다. 정책도 이들만 고른다. 건국 정책 하나에 노선 셋. "
         "합쳐 넷을 정하고 그대로 간다.",
 
-        "병사 하나하나가 다르다. 태어날 때 굴려 받는 자질이 여섯. 체력·공격력·속도· "
-        "공격 속도·노동력·기술이고 목장이 그 하한을 밀어올리며 대학이 상한을 연다. "
+        "병사 하나하나가 다르다. 태어날 때 굴려 받는 자질이 일곱. 체력·방어력·공격력· "
+        "속도·공격 속도·노동력·기술이고 목장이 그 하한을 밀어올리며 대학이 상한을 연다. "
+        "방어력은 갑옷을 두껍게 하는 게 아니라 입은 갑옷에서 얼마나 뽑아내는지다. "
         "싸워서 죽인 만큼 계급이 오르고 계급은 체력과 공격력을 더한다. 살려 둔 병사가 "
         "새로 뽑은 병사보다 비싼 이유. 계급은 민간인으로 돌아가도 남는다.",
 
