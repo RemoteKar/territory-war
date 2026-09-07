@@ -714,15 +714,22 @@ def unit_page(u, builds, units):
              ]
     # A shooter's rate is its reload; secondsPerBlow describes a melee swing it may never
     # make. Both, for the ones that do both.
-    if u["ranged"]:
-        stats.append(("재장전", "%s초" % u.get("reloadSeconds", 0), "1발당"))
-    if not u["ranged"] or u["hybrid"]:
-        stats.append(("공격 속도", "%s초" % u.get("secondsPerBlow", 0), "1회당"))
+    # A unit that deals no damage has no rate worth printing. A cleric's one-second swing
+    # is the animation, not a thing that happens to anybody.
+    if u["damage"] > 0 or u.get("meleeDamage"):
+        # Called 공속 because that is what the barracks card calls it. The two now carry
+        # the same number - the site had it at half for a while - and a player checking one
+        # against the other should not have to work out that 재장전 and 공속 are the same
+        # thing said twice.
+        if u["ranged"]:
+            stats.append(("공속", "%s초" % u.get("reloadSeconds", 0), "1발당"))
+        if not u["ranged"] or u["hybrid"]:
+            stats.append(("공속", "%s초" % u.get("secondsPerBlow", 0), "1회당"))
     stats += [
              ("사거리", str(u["range"]), ""),
              ("이동", str(u["blocksPerSecond"]), "블록/초"),
              ("유지비", str(u["upkeep"]), "")]
-    if u.get("accuracyBand"):
+    if u.get("accuracyBand") and u["damage"] > 0:
         stats.append(("명중률", u["accuracyBand"], ""))
     for key, label, note in [("crit", "치명타", ""), ("evasion", "회피", ""),
                              ("block", "막기", ""), ("magicResist", "마법 저항", ""),
@@ -732,6 +739,8 @@ def unit_page(u, builds, units):
             stats.append((label, pct(v), note))
     # 기술 is derived from the tier and reads 10 for eighty-two of the hundred and two,
     # so on a page it is a column of the same number. Left out of the sheet.
+    if (u.get("chargeBonus") or 1) > 1:
+        stats.append(("돌격 배수", "x%s" % u["chargeBonus"], "달려든 순간"))
     if u["residents"] != 1:
         stats.append(("차지 인구", "%d명" % u["residents"], ""))
     if u["hireCost"]:
@@ -739,6 +748,34 @@ def unit_page(u, builds, units):
     grid = "".join(
         '<div class="stat"><span>%s</span><b>%s</b>%s</div>'
         % (e(a), e(v), "<i>%s</i>" % e(n) if n else "") for a, v, n in stats)
+
+    # Damage a second, worked out from the two numbers already on the sheet.
+    #
+    # A sheet that gives a blow and an interval separately leaves the reader multiplying,
+    # and the two are not comparable across a musket and a dagger until somebody does.
+    # Armour, matchup and research all land later in the real thing, so this is the figure
+    # before any of them - said plainly rather than dressed up as the truth.
+    rate = ""
+    span = u["reloadSeconds"] if u["ranged"] else u["secondsPerBlow"]
+    if u["damage"] > 0 and span:
+        rows = [("초당 피해", "%.1f" % (u["damage"] / span),
+                 "공격력 %d ÷ 공속 %s초" % (u["damage"], span))]
+        mate = units.get(u.get("crew")) if u.get("crew") else None
+        if mate and mate["damage"] > 0:
+            ms = mate["reloadSeconds"] if mate["ranged"] else mate["secondsPerBlow"]
+            if ms:
+                rows.append(("한 기 합계",
+                             "%.1f" % (u["damage"] / span + mate["damage"] / ms),
+                             "조종 + 탑승"))
+        if u.get("splash"):
+            rows.append(("인접 피해", "%d%%" % round(u["splash"] * 100), "함께 들어감"))
+        if (u.get("chargeBonus") or 1) > 1:
+            rows.append(("돌격 시", "%.1f" % (u["damage"] * u["chargeBonus"]), "한 번의 피해"))
+        rate = ('<section><h2>실제 성능</h2><div class="statgrid">%s</div>'
+                '<p class="muted small">방어력·상성·연구를 적용하기 전 값이다.</p>'
+                '</section>'
+                % "".join('<div class="stat"><span>%s</span><b>%s</b><i>%s</i></div>'
+                          % (e(a), e(v), e(n)) for a, v, n in rows))
 
     # The traits the game itself keeps, plus the two it does not put in that list.
     #
@@ -753,7 +790,7 @@ def unit_page(u, builds, units):
         tags.append(trait(a))
     for key, label in [("ranged", "원거리"), ("hybrid", "근접 겸용"),
                        ("medic", "치유"), ("hired", "용병"), ("undead", "소생체"),
-                       ("militia", "민병"), ("mindless", "야수"), ("golem", "골렘"),
+                       ("militia", "민병"), ("mindless", "괴수"), ("golem", "골렘"),
                        ("summoned", "소환"), ("crewOnly", "승무원")]:
         if u.get(key):
             tags.append('<span class="tag">%s</span>' % label)
@@ -856,10 +893,11 @@ def unit_page(u, builds, units):
 %s
 %s
 %s
+%s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
        "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, gear,
-       cost(u["cost"]), seats, lim, match, ups)
+       cost(u["cost"]), rate, seats, lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
 
