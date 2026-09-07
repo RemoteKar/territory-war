@@ -68,6 +68,13 @@ code {
 main p a:hover { border-bottom-color:var(--gold); }
 
 .page-head { margin-bottom:40px; }
+.page-head.withart { display:flex; gap:28px; align-items:flex-start;
+  justify-content:space-between; flex-wrap:wrap; }
+.page-head.withart > div { flex:1 1 320px; min-width:0; }
+.portrait { margin:0; flex:0 0 auto; width:190px; max-width:45%; }
+.portrait img { display:block; width:100%; height:auto;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.35)); }
+@media (max-width:640px) { .portrait { width:140px; } }
 .kicker {
   font-size:12px; letter-spacing:.14em; color:var(--gold); margin:0 0 10px;
   text-transform:uppercase; font-weight:600;

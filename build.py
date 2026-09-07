@@ -24,6 +24,9 @@ import shutil
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "docs")
+# Pictures live outside docs/ because docs/ is deleted and rebuilt on every run. Anything
+# kept in there would survive exactly until the next build.
+ART = os.path.join(HERE, "assets")
 DATA = os.path.join(HERE, "data", "docs.json")
 
 RACE_TAG = {"OUTLANDER": "out", "VILLAGER": "vil", "UNDEAD": "und", "PIGLIN": "pig"}
@@ -108,8 +111,17 @@ def build():
 
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
-    for d in ["", "race", "building", "unit", "assets"]:
+    for d in ["", "race", "building", "unit", "assets", "assets/unit"]:
         os.makedirs(os.path.join(OUT, d), exist_ok=True)
+
+    # Whatever portraits exist, copied in by name. Adding one is dropping
+    # assets/unit/<ID>.png into place - there is nothing here to edit for it, which is the
+    # point: a list of which units have pictures would be a list that goes stale.
+    art = os.path.join(ART, "unit")
+    if os.path.isdir(art):
+        for f in sorted(os.listdir(art)):
+            if f.lower().endswith((".png", ".jpg", ".webp")):
+                shutil.copy(os.path.join(art, f), os.path.join(OUT, "assets", "unit", f))
 
     battles(load_battles())
     write("assets/style.css", CSS)
@@ -831,6 +843,16 @@ def trait(a):
             % (e(tip), e(tip), e(label)))
 
 
+def portrait(unit_id):
+    """The unit's picture, if somebody has drawn one."""
+    for ext in ("png", "jpg", "webp"):
+        if os.path.exists(os.path.join(ART, "unit", "%s.%s" % (unit_id, ext))):
+            return ('<figure class="portrait">'
+                    '<img src="../assets/unit/%s.%s" alt="" loading="lazy"></figure>'
+                    % (unit_id, ext))
+    return ""
+
+
 def unit_page(u, builds, units):
     def pct(x):
         return "%d%%" % round(x * 100)
@@ -1098,11 +1120,14 @@ def unit_page(u, builds, units):
 
     body = """
 <p class="crumb"><a href="../units.html">병종</a><span>%s</span></p>
-<header class="page-head">
-  <h1>%s <span class="tier t%d">T%d</span></h1>
-  <p class="lead">%s · <a href="../building/%s.html">%s</a> 에서 나온다</p>
-  <p class="tags">%s</p>
-  <p class="pills">%s</p>
+<header class="page-head withart">
+  <div>
+    <h1>%s <span class="tier t%d">T%d</span></h1>
+    <p class="lead">%s · <a href="../building/%s.html">%s</a> 에서 나온다</p>
+    <p class="tags">%s</p>
+    <p class="pills">%s</p>
+  </div>
+  %s
 </header>
 %s
 <section><h2>제원</h2><div class="statgrid">%s</div>
@@ -1116,7 +1141,8 @@ def unit_page(u, builds, units):
 %s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
-       "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, gear,
+       "".join(tags), race_pills(u["fieldableBy"], "../"), portrait(u["id"]),
+       attack, grid, gear,
        cost(u["cost"]), beast, rate, mend, seats, lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
@@ -1297,6 +1323,13 @@ code {
 main p a:hover { border-bottom-color:var(--gold); }
 
 .page-head { margin-bottom:40px; }
+.page-head.withart { display:flex; gap:28px; align-items:flex-start;
+  justify-content:space-between; flex-wrap:wrap; }
+.page-head.withart > div { flex:1 1 320px; min-width:0; }
+.portrait { margin:0; flex:0 0 auto; width:190px; max-width:45%; }
+.portrait img { display:block; width:100%; height:auto;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.35)); }
+@media (max-width:640px) { .portrait { width:140px; } }
 .kicker {
   font-size:12px; letter-spacing:.14em; color:var(--gold); margin:0 0 10px;
   text-transform:uppercase; font-weight:600;
