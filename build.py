@@ -14,6 +14,7 @@ uniformity (E-2). Run tools/diagnose.py after touching any of the copy below.
 
     python build.py            # -> docs/
 """
+import glob
 import html
 import json
 import io
@@ -34,6 +35,7 @@ NAV = [
     ("buildings.html", "건물"),
     ("units.html", "병종"),
     ("research.html", "연구"),
+    ("battles.html", "전투 기록"),
 ]
 
 
@@ -109,6 +111,7 @@ def build():
     for d in ["", "race", "building", "unit", "assets"]:
         os.makedirs(os.path.join(OUT, d), exist_ok=True)
 
+    battles(load_battles())
     write("assets/style.css", CSS)
     write(".nojekyll", "")
     shutil.copy(DATA, os.path.join(OUT, "docs.json"))
@@ -128,6 +131,110 @@ def build():
 
     n = sum(len(f) for _, _, f in os.walk(OUT))
     print("built %d files into %s" % (n, OUT))
+
+
+def load_battles():
+    """Every record the server has written, newest first."""
+    out = []
+    for p in sorted(glob.glob(os.path.join(HERE, "data", "battles", "*.json")), reverse=True):
+        try:
+            out.append(json.load(io.open(p, encoding="utf-8")))
+        except ValueError:
+            continue
+    return out
+
+
+def roster(items):
+    if not items:
+        return '<span class="muted">-</span>'
+    bits = []
+    for x in items:
+        ranks = x.get("levels") or {}
+        veteran = sum(v for k, v in ranks.items() if k != "Lv1")
+        tail = '<em>계급 %d</em>' % veteran if veteran else ""
+        bits.append('<span class="chip">%s <b>%d</b>%s</span>'
+                    % (e(x["korean"]), x["count"], tail))
+    return '<div class="chips">%s</div>' % "".join(bits)
+
+
+def battles(records):
+    """One card a battle, one block a side.
+
+    Written as a list of sides rather than attacker-against-defender because the game
+    groups armies by battleId and puts no ceiling on how many share one - an ally that
+    marches in is simply another side, and a two-column table could not have held it.
+    """
+    if not records:
+        body = """
+<header class="page-head">
+  <p class="kicker">전투 기록</p>
+  <h1>아직 없다</h1>
+  <p class="lead">서버가 전투를 치르면 여기 쌓인다. 야전 조우와 정착지 공방 둘 다,
+     양쪽이 무엇을 들고 왔고 무엇이 남았는지까지.</p>
+</header>"""
+        write("battles.html", page(0, "전투 기록", body, "battles.html"))
+        return
+
+    cards = ""
+    for b in records:
+        sides = ""
+        for s0 in b["sides"]:
+            won = s0.get("won")
+            studies = []
+            for k, v in (s0.get("research") or {}).items():
+                studies.append("%s Lv%d" % (k, v))
+            studies += list(s0.get("labs") or [])
+            studies += list(s0.get("doctrines") or [])
+            who = s0.get("player") or ("AI" if s0.get("ai") else "-")
+            sides += """
+      <div class="side%s">
+        <div class="who"><b>%s</b><span>%s · %s</span>%s</div>
+        <table class="facts"><tbody>
+          <tr><th>데려온 병력</th><td>%d</td></tr>
+          <tr><th>도중 증원</th><td>%s</td></tr>
+          <tr><th>생존</th><td>%d</td></tr>
+          <tr><th>손실</th><td>%d</td></tr>
+          <tr><th>무기고</th><td>Lv%d</td></tr>
+        </tbody></table>
+        <h4>편성</h4>%s
+        %s
+        <h4>생존</h4>%s
+        %s
+      </div>""" % (
+                " won" if won else "",
+                e(s0["nation"]), e(who), e(s0["race"]),
+                '<i class="crown">승</i>' if won else "",
+                s0["brought"],
+                ("<b>%d</b>" % s0["arrivedLater"]) if s0["arrivedLater"] else "0",
+                s0["survived"], s0["lost"], s0.get("armouryLevel", 0),
+                roster(s0.get("opening")),
+                ("<h4>증원 · 생산</h4>%s" % roster(s0.get("reinforced")))
+                if s0.get("reinforced") else "",
+                roster(s0.get("survivors")),
+                ('<p class="muted small">연구 : %s</p>' % e(" · ".join(studies)))
+                if studies else "")
+        cards += """
+  <article class="battle">
+    <header>
+      <span class="tag">%s</span>
+      <h2>%s</h2>
+      <span class="muted small">%s · %d초</span>
+    </header>
+    <div class="sides">%s</div>
+  </article>""" % (e(b["kind"]), e(b.get("where") or "-"),
+                   e((b.get("closed") or "")[:16].replace("T", " ")),
+                   b.get("seconds", 0), sides)
+
+    body = """
+<header class="page-head">
+  <p class="kicker">전투 기록</p>
+  <h1>치러진 싸움 <em>%d</em></h1>
+  <p class="lead">서버가 스스로 적어 둔 것들이다. 양쪽이 무엇을 데려왔고 도중에 무엇이
+     더 왔으며 무엇이 남았는지, 그때 어떤 연구가 끝나 있었는지까지.</p>
+</header>
+%s
+""" % (len(records), cards)
+    write("battles.html", page(0, "전투 기록", body, "battles.html", wide=True))
 
 
 def write(rel, content):
@@ -1225,6 +1332,26 @@ main p a:hover { border-bottom-color:var(--gold); }
 .chip.ground em, .chip.study em { color:inherit; opacity:.7; }
 .legend { display:flex; gap:8px; margin-top:14px; }
 .legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
+
+.battle {
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px; margin-bottom:16px;
+}
+.battle > header { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap;
+                   margin-bottom:16px; }
+.battle > header h2 { margin:0; color:var(--ink); font-size:17px; }
+.sides { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+.side { background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:16px; }
+.side.won { border-color:rgba(224,176,85,.5); }
+.side .who { display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; margin-bottom:12px; }
+.side .who b { font-size:16px; }
+.side .who span { color:var(--faint); font-size:12.5px; }
+.crown { font-style:normal; background:var(--gold); color:#1c1508; font-size:11px;
+         padding:1px 7px; border-radius:5px; font-weight:700; }
+.side h4 { margin:14px 0 7px; font-size:12.5px; color:var(--faint); font-weight:500; }
+.side .chip { font-size:12.5px; padding:4px 9px; }
+.side .chip b { color:var(--gold); }
+.side .chip em { font-style:normal; color:var(--faint); font-size:11px; margin-left:4px; }
 
 .attack {
   border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;

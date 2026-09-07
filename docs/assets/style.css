@@ -153,6 +153,26 @@ main p a:hover { border-bottom-color:var(--gold); }
 .legend { display:flex; gap:8px; margin-top:14px; }
 .legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
 
+.battle {
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
+  padding:20px; margin-bottom:16px;
+}
+.battle > header { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap;
+                   margin-bottom:16px; }
+.battle > header h2 { margin:0; color:var(--ink); font-size:17px; }
+.sides { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+.side { background:var(--bg2); border:1px solid var(--line); border-radius:10px; padding:16px; }
+.side.won { border-color:rgba(224,176,85,.5); }
+.side .who { display:flex; gap:8px; align-items:baseline; flex-wrap:wrap; margin-bottom:12px; }
+.side .who b { font-size:16px; }
+.side .who span { color:var(--faint); font-size:12.5px; }
+.crown { font-style:normal; background:var(--gold); color:#1c1508; font-size:11px;
+         padding:1px 7px; border-radius:5px; font-weight:700; }
+.side h4 { margin:14px 0 7px; font-size:12.5px; color:var(--faint); font-weight:500; }
+.side .chip { font-size:12.5px; padding:4px 9px; }
+.side .chip b { color:var(--gold); }
+.side .chip em { font-style:normal; color:var(--faint); font-size:11px; margin-left:4px; }
+
 .attack {
   border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;
 }
