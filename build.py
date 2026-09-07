@@ -867,6 +867,13 @@ def unit_page(u, builds, units):
         v = u.get(key) or 0
         if v:
             stats.append((label, pct(v), note))
+    # How many bodies one shot goes through, counted as bodies rather than as the
+    # "extra after the first" the field actually holds - nobody aiming a gun is thinking
+    # in extras.
+    if u.get("pierce"):
+        stats.append(("관통", "적 %d체" % (u["pierce"] + 1), "한 발이 뚫는 수"))
+    if (u.get("vsBuilding") or 1) != 1:
+        stats.append(("건물 피해", "x%s" % u["vsBuilding"], ""))
     # 기술 is derived from the tier and reads 10 for eighty-two of the hundred and two,
     # so on a page it is a column of the same number. Left out of the sheet.
     if (u.get("chargeBonus") or 1) > 1:
