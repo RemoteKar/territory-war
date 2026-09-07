@@ -200,9 +200,26 @@ def index(doc):
 
 # ---------------------------------------------------------------- controls
 def controls():
+    """The command tables here were checked one by one against TwCommand's dispatcher.
+
+    They were first lifted out of the in-game help text, which turned out to be a
+    different list: the help page has never mentioned `/tw preset`, and starting a nation
+    does not work without it.
+    """
     def row(k, name, note):
         return "<tr><td><kbd>%s</kbd></td><td><b>%s</b></td><td>%s</td></tr>" % (k, name, note)
 
+    def clist(rows):
+        return "".join("<tr><td><code>%s</code></td><td>%s</td></tr>" % (c, d)
+                       for c, d in rows)
+
+    starting = [
+        ("/tw preset", "국가 이름·색·문양·<b>종족</b>을 고릅니다. 한 번만 하면 됩니다"),
+        ("/tw join", "참전. 별칭은 <code>/tw play</code> · <code>/tw 참가</code>"),
+        ("우클릭", "정착지 선정 단계에 땅을 우클릭해 자리를 잡습니다"),
+        ("/tw watch", "관전으로 들어갑니다. 참전 중에는 바꿀 수 없습니다"),
+        ("/tw phase", "현재 단계와 남은 시간"),
+    ]
     idle = "".join([
         row("1", "필드맵 / 정착지 전환", "영토·요새·원정대를 보러 나갑니다"),
         row("2", "건물 건설", "고른 뒤 지을 곳을 조준합니다"),
@@ -228,30 +245,32 @@ def controls():
     ])
 
     cmds = [
-        ("/tw play", "설명을 보고 참가 / 관전 선택"),
-        ("/tw phase", "현재 단계와 남은 시간"),
         ("/tw info", "내 나라 요약"),
         ("/tw here", "서 있는 칸 정보"),
         ("/tw list", "나라 목록"),
         ("/tw build [건물]", "인수 없이 쓰면 건설 창이 열립니다"),
         ("/tw claim / unclaim", "칸 점유 / 해제"),
         ("/tw upgrade", "서 있는 건물 강화"),
-        ("/tw train [병종] [수]", "인수 없이 치면 전체 병종표"),
+        ("/tw train [병종] [수]", "인수 없이 치면 내 종족의 병종표"),
         ("/tw garrison [병종]", "서 있는 망루·발리스타에 주둔"),
         ("/tw sortie", "출진 창 (병종·보급 슬라이더)"),
         ("/tw armies", "원정대 목록 (짐·굶주림 포함)"),
         ("/tw follow", "선택한 원정대 위치로 이동"),
         ("/tw recallarmy", "선택한 원정대 정지"),
         ("/tw trade", "선택한 원정대로 정착지에서 거래"),
-        ("/tw siege &lt;국가&gt;", "투석기 발사 (광물 15, 물리 탄도)"),
+        ("/tw pack [reload]", "리소스팩 상태 / 재전송"),
+        ("/tw 설정", "라운드 규칙 보기·변경"),
+    ]
+    war = [
+        ("/tw siege &lt;국가&gt;", "상대 타운홀 방향으로 바위를 던집니다. 광물 15, 물리 탄도 — "
+                              "튕기고 굴러서 <b>멈춘 칸의 건물</b>이 맞습니다"),
         ("/tw diplomacy", "외교 창 (동맹·항복·지원)"),
         ("/tw ally &lt;국가&gt;", "동맹 제안 (이미 동맹이면 파기)"),
         ("/tw surrender &lt;국가&gt;", "항복 제안 (비축 절반 배상 + 속국화)"),
         ("/tw accept &lt;국가&gt;", "받은 제안 수락"),
         ("/tw offers", "받은 제안 목록"),
         ("/tw gift &lt;국가&gt; &lt;자원&gt; &lt;수량&gt;", "자원 지원"),
-        ("/tw 설정", "라운드 규칙 보기·변경"),
-        ("/tw pack [reload]", "리소스팩 상태 / 재전송"),
+        ("/tw 비난 &lt;국가&gt;", "공개 규탄 — 실질 효과는 없습니다"),
     ]
     admin = [
         ("/tw start [초]", "정착지 선정 시작"),
@@ -266,17 +285,24 @@ def controls():
         ("/tw 설정 인구 &lt;최대&gt;", "0 이면 무제한"),
         ("/tw 설정 정예 &lt;수&gt;", "5티어 병종 동시 보유 상한"),
         ("/tw 설정 리로드", "config.yml 을 재시작 없이 다시 읽습니다"),
+        ("/tw 래그돌 [무손상|팔|덩어리|산산조각]", "바라보는 곳에 시체 하나"),
+        ("/tw 샌드박스", "모델 전시장"),
+        ("/tw 트림", "갑옷 트림 목록"),
+        ("/tw 스킨목록 · /tw 스킨 &lt;이름&gt;", "마네킹 스킨 목록·미리보기"),
         ("tw docs", "콘솔 전용 — 이 문서의 원본 데이터를 씁니다"),
     ]
-
-    def clist(rows):
-        return "".join("<tr><td><code>%s</code></td><td>%s</td></tr>" % (c, e(d) if "&lt;" not in c else d)
-                       for c, d in rows)
 
     body = """
 <h1>조작</h1>
 <p class="sub">거의 모든 조작은 핫바에서 이뤄집니다. 무엇을 선택했느냐에 따라 같은 숫자 키가
    다른 일을 합니다.</p>
+
+<section>
+  <h2>시작하기</h2>
+  <p class="sub">순서대로 하면 됩니다. <code>/tw nation</code> 은 폐지됐고,
+     건국은 <b>preset 한 번 + join</b> 입니다.</p>
+  <table class="cmds"><tbody>%s</tbody></table>
+</section>
 
 <section>
   <h2>아무것도 선택하지 않았을 때</h2>
@@ -300,10 +326,15 @@ def controls():
 </section>
 
 <section>
+  <h2>전쟁과 외교</h2>
+  <table class="cmds"><tbody>%s</tbody></table>
+</section>
+
+<section>
   <h2>관리자 · 테스트</h2>
   <table class="cmds"><tbody>%s</tbody></table>
 </section>
-""" % (idle, sel, field, clist(cmds), clist(admin))
+""" % (clist(starting), idle, sel, field, clist(cmds), clist(war), clist(admin))
     write("controls.html", page(0, "조작", body, "controls.html"))
 
 
