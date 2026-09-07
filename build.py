@@ -681,6 +681,29 @@ def listing_units(doc):
     write("units.html", page(0, "병종", body, "units.html", wide=True))
 
 
+def trait(a):
+    """A chip short enough to scan, with the explanation on hover.
+
+    The game writes an ability as a name and a qualifier in one string - "퇴마 - 언데드·
+    강령술사에 추가 피해", "마법 공격 (방어력 무시)" - which is right for a chat line and
+    far too long for a row of chips. Split at the separator the game already uses and hang
+    the tail off a tooltip. title= carries it as well, so it survives touch and a reader.
+    """
+    label, tip = a, ""
+    for sep in (" - ", " — "):
+        if sep in a:
+            label, tip = a.split(sep, 1)
+            break
+    else:
+        m = re.match(r"^(.*?)\s*\((.+)\)$", a)
+        if m:
+            label, tip = m.group(1), m.group(2)
+    if not tip:
+        return '<span class="tag able">%s</span>' % e(a)
+    return ('<span class="tag able tip" data-tip="%s" title="%s">%s</span>'
+            % (e(tip), e(tip), e(label)))
+
+
 def unit_page(u, builds, units):
     def pct(x):
         return "%d%%" % round(x * 100)
@@ -707,8 +730,8 @@ def unit_page(u, builds, units):
         v = u.get(key) or 0
         if v:
             stats.append((label, pct(v), note))
-    if u.get("skill"):
-        stats.append(("기술", str(u["skill"]), ""))
+    # 기술 is derived from the tier and reads 10 for eighty-two of the hundred and two,
+    # so on a page it is a column of the same number. Left out of the sheet.
     if u["residents"] != 1:
         stats.append(("차지 인구", "%d명" % u["residents"], ""))
     if u["hireCost"]:
@@ -727,7 +750,7 @@ def unit_page(u, builds, units):
     if u.get("flies"):
         tags.append('<span class="tag fly">비행</span>')
     for a in (u.get("abilities") or []):
-        tags.append('<span class="tag able">%s</span>' % e(a))
+        tags.append(trait(a))
     for key, label in [("ranged", "원거리"), ("hybrid", "근접 겸용"),
                        ("medic", "치유"), ("hired", "용병"), ("undead", "소생체"),
                        ("militia", "민병"), ("mindless", "야수"), ("golem", "골렘"),
@@ -1198,6 +1221,16 @@ button.pill:hover { border-color:var(--line2); }
 }
 .tag.off { color:var(--bad); border-color:rgba(224,130,120,.3); }
 .tag.able { color:var(--ink); border-color:var(--line2); }
+.tag.tip { position:relative; cursor:help; border-bottom:1px dashed var(--faint); }
+.tag.tip::after {
+  content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 9px);
+  transform:translateX(-50%); width:max-content; max-width:min(280px,70vw);
+  padding:7px 11px; border-radius:9px; background:var(--panel2);
+  border:1px solid var(--line2); color:var(--ink); font-size:12.5px; line-height:1.55;
+  white-space:normal; text-align:left; opacity:0; pointer-events:none;
+  transition:opacity .14s; z-index:9; box-shadow:0 8px 24px rgba(0,0,0,.45);
+}
+.tag.tip:hover::after, .tag.tip:focus-visible::after { opacity:1; }
 .tag.fly { color:var(--out); border-color:rgba(121,166,232,.45); }
 
 .r i { font-style:normal; font-size:12.5px; white-space:nowrap; margin-right:9px; }
