@@ -777,6 +777,33 @@ def unit_page(u, builds, units):
                 % "".join('<div class="stat"><span>%s</span><b>%s</b><i>%s</i></div>'
                           % (e(a), e(v), e(n)) for a, v, n in rows))
 
+    # What it mends, and how often. Two clocks, and which one matters is the whole of
+    # how a witch plays differently from a cardinal.
+    mend = ""
+    rows = []
+    if u.get("healing"):
+        rows.append(("회복량", str(u["healing"]), "한 번에"))
+        rows.append(("간격", "%s초" % u.get("healSeconds"), "가장 다친 아군 1명"))
+    if u.get("mendRadius"):
+        rows.append(("회복량", str(u["mendAmount"]), "범위 안 전원"))
+        rows.append(("범위", "%s블록" % u["mendRadius"], ""))
+        if u.get("mendShared"):
+            rows.append(("간격", "공속 공유", "축복이 공격 대신 나감"))
+        else:
+            rows.append(("간격", "%s초" % u.get("mendSeconds"), "공격과 별개"))
+    if rows:
+        note = ("체력이 70% 아래로 떨어진 아군이 있을 때만 축복을 쓴다. "
+                "그래서 한 발도 못 쏘고 긁힌 상처만 치료하는 일이 없다."
+                if u.get("mendShared") else
+                "쏠 상대가 없어도 회복은 자기 박자대로 나간다."
+                if u.get("mendRadius") else
+                "사거리 안에서 가장 많이 다친 한 명을 고른다. 스스로는 싸우지 못한다.")
+        mend = ('<section><h2>회복</h2><div class="statgrid">%s</div>'
+                '<p class="muted small">%s</p></section>'
+                % ("".join('<div class="stat"><span>%s</span><b>%s</b>%s</div>'
+                           % (e(a), e(v), "<i>%s</i>" % e(n) if n else "")
+                           for a, v, n in rows), note))
+
     # The traits the game itself keeps, plus the two it does not put in that list.
     #
     # abilities() already names 돌격 · 기마 · 장벽 도약 and a dozen more, and the page was
@@ -894,10 +921,11 @@ def unit_page(u, builds, units):
 %s
 %s
 %s
+%s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
        "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, gear,
-       cost(u["cost"]), rate, seats, lim, match, ups)
+       cost(u["cost"]), rate, mend, seats, lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
 
