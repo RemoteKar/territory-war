@@ -741,6 +741,10 @@ def unit_page(u, builds, units):
     # so on a page it is a column of the same number. Left out of the sheet.
     if (u.get("chargeBonus") or 1) > 1:
         stats.append(("돌격 배수", "x%s" % u["chargeBonus"], ""))
+    if (u.get("salvo") or 1) > 1:
+        stats.append(("연사", "%d발" % u["salvo"], "쿨 한 번에"))
+    if u.get("windUp"):
+        stats.append(("준비 동작", "%s초" % u["windUpSeconds"], "발사 전"))
     # Who it walks at when several are within reach.
     if u.get("priority") and u["damage"] > 0:
         stats.append(("공격 우선도", u["priority"], ""))
@@ -770,6 +774,9 @@ def unit_page(u, builds, units):
                 rows.append(("한 기 합계",
                              "%.1f" % (u["damage"] / span + mate["damage"] / ms),
                              "조종 + 탑승"))
+        if (u.get("salvo") or 1) > 1:
+            rows.append(("볼리 합계", "%d" % (u["damage"] * u["salvo"]),
+                         "%d발 전탄 명중 시" % u["salvo"]))
         if u.get("splash"):
             rows.append(("인접 피해", "%d%%" % round(u["splash"] * 100), "함께 들어감"))
         if (u.get("chargeBonus") or 1) > 1:
