@@ -145,6 +145,14 @@ main p a:hover { border-bottom-color:var(--gold); }
 .steps b { font-weight:640; }
 .steps span { color:var(--dim); font-size:14px; }
 
+.seat h3 { margin:18px 0 8px; color:var(--ink); }
+.seat h3 .muted { font-weight:400; }
+.chip.ground { border-color:rgba(224,176,85,.45); color:var(--gold); }
+.chip.study { border-color:rgba(121,166,232,.45); color:var(--out); }
+.chip.ground em, .chip.study em { color:inherit; opacity:.7; }
+.legend { display:flex; gap:8px; margin-top:14px; }
+.legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
+
 .attack {
   border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;
 }

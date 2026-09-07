@@ -123,7 +123,7 @@ def build():
         building_page(b, units)
     listing_units(doc)
     for u in doc["units"]:
-        unit_page(u, builds)
+        unit_page(u, builds, units)
     research(doc)
 
     n = sum(len(f) for _, _, f in os.walk(OUT))
@@ -405,6 +405,11 @@ PLAYSTYLE = {
         "부대까지 소급해 바꾼다. 정책도 이들만 고른다. 건국 정책 하나에 노선 셋. "
         "합쳐 넷을 정하고 그대로 간다.",
 
+        "병사 하나하나가 다르다. 태어날 때 굴려 받는 자질이 여섯. 체력·공격력·속도· "
+        "공격 속도·노동력·기술이고 목장이 그 하한을 밀어올리며 대학이 상한을 연다. "
+        "싸워서 죽인 만큼 계급이 오르고 계급은 체력과 공격력을 더한다. 살려 둔 병사가 "
+        "새로 뽑은 병사보다 비싼 이유. 계급은 민간인으로 돌아가도 남는다.",
+
         "약점은 값. 남들이 종족 특성으로 공짜로 얻는 것을 이들은 전부 자원과 시간으로 "
         "산다. 인구가 저절로 늘어나는 만큼 먹이기도 해야 한다. 병사 하나를 뽑을 "
         "때마다 밭에서 한 명이 빠진다. 판을 길게 끌수록 유리한 쪽.",
@@ -445,6 +450,10 @@ PLAYSTYLE = {
         "바꿔 얻는다. 환율이 나쁘니 금이 드는 것은 전부 비싸다. 건물은 전부 목재라 "
         "벌목대가 곧 국력. 괴수 우리 하나가 대장간과 마굿간을 겸한다.",
 
+        "자질과 계급은 피글린 병사에게만 붙는다. 전사와 브루트는 여섯 자질을 굴려 "
+        "받고 싸운 만큼 계급이 오른다. 우리에서 사 오는 괴수는 전부 평균값 고정에 "
+        "계급도 오르지 않는다. 호글린 열 마리는 언제나 똑같은 호글린 열 마리.",
+
         "괴수 우리 레벨이 호글린에서 블레이즈, 가스트, 위더 순으로 열린다. 연구소가 "
         "없어 연구 없이 Lv4까지 올라가니 자원만 모으면 최상위 병종에 닿는다. 병사가 "
         "곧 인부. 군대를 놀려두면 경제가 살고 내보내면 건설이 멈춘다. 그 줄타기가 이 "
@@ -478,9 +487,25 @@ def race_page(r, builds, units):
         row = [i for i in r["units"] if units[i]["tier"] == tier]
         if not row:
             continue
+        # Yellow for ground a nation has to hold first, blue for a study it has to
+        # finish. Both are conditions on top of the armoury level, and a flat list of
+        # names said nothing about either.
+        def chip(i):
+            x = units[i]
+            cls = "chip"
+            note = ""
+            if x.get("needsGround"):
+                cls += " ground"
+                note = x.get("homeland") or "해안"
+            elif x.get("needsLab"):
+                cls += " study"
+                note = x["needsLab"]
+            return '<a class="%s" href="../unit/%s.html">%s%s</a>' % (
+                cls, i, e(x["korean"]),
+                '<em>%s</em>' % e(note) if note else "")
+
         ulist += '<div class="tier-row"><span class="t">T%d</span><div>%s</div></div>' % (
-            tier, "".join('<a class="chip" href="../unit/%s.html">%s</a>'
-                          % (i, e(units[i]["korean"])) for i in row))
+            tier, "".join(chip(i) for i in row))
 
     pol = ""
     for p in r["policies"]:
@@ -500,7 +525,9 @@ def race_page(r, builds, units):
 
 <section><h2>지을 수 있는 건물 <em>%d</em></h2><div class="chips">%s</div></section>
 
-<section><h2>뽑을 수 있는 병종 <em>%d</em></h2>%s</section>
+<section><h2>뽑을 수 있는 병종 <em>%d</em></h2>%s
+  <p class="legend"><span class="chip ground">지형·해안 필요</span>
+     <span class="chip study">연구 필요</span></p></section>
 
 <section><h2>정책 <em>%d</em></h2><table class="cmds"><tbody>%s</tbody></table></section>
 """ % (e(r["korean"]), RACE_TAG[rid], e(r["korean"]), e(r["blurb"]), prose, ft,
@@ -654,7 +681,7 @@ def listing_units(doc):
     write("units.html", page(0, "병종", body, "units.html", wide=True))
 
 
-def unit_page(u, builds):
+def unit_page(u, builds, units):
     def pct(x):
         return "%d%%" % round(x * 100)
 
@@ -672,6 +699,8 @@ def unit_page(u, builds):
              ("사거리", str(u["range"]), ""),
              ("이동", str(u["blocksPerSecond"]), "블록/초"),
              ("유지비", str(u["upkeep"]), "")]
+    if u.get("accuracyBand"):
+        stats.append(("명중률", u["accuracyBand"], ""))
     for key, label, note in [("crit", "치명타", ""), ("evasion", "회피", ""),
                              ("block", "막기", ""), ("magicResist", "마법 저항", ""),
                              ("pierceArmour", "방어 관통", "")]:
@@ -740,17 +769,49 @@ def unit_page(u, builds):
 
     # Composed in Docs.java out of the same fields the combat code reads, so it cannot
     # describe a weapon the unit does not carry. Newlines are real line breaks.
+    # What is actually strapped on, which is also what the attack line names.
+    worn = []
+    if u.get("weapon"):
+        worn.append(u["weapon"])
+    if u.get("offhand"):
+        worn.append(u["offhand"])
+    gear = ("<tr><th>장비</th><td>%s</td></tr>" % e(" · ".join(worn))) if worn else ""
+
     attack = ""
     if u.get("attack"):
         lines = "".join("<p>%s</p>" % e(x) for x in u["attack"].split("\n") if x.strip())
         attack = '<section class="attack"><h2>공격 방식</h2>%s</section>' % lines
 
+    # Two on one mount, two sets of numbers.
+    #
+    # A balloon carries an archer and a camel rider carries a second bow. The crewman is
+    # crewOnly so he never gets a page of his own, and the page for the thing they ride
+    # was quoting one seat's damage as though that were the unit.
+    seats = ""
+    mate = units.get(u.get("crew")) if u.get("crew") else None
+    if mate:
+        def seat(x, who):
+            bits = [("체력", x["maxHp"]), ("공격력", x["damage"]), ("사거리", x["range"])]
+            if x.get("accuracyBand"):
+                bits.append(("명중률", x["accuracyBand"]))
+            if x.get("weapon"):
+                bits.append(("장비", x["weapon"]))
+            return ('<div class="seat"><h3>%s <span class="muted">%s</span></h3>'
+                    '<div class="statgrid">%s</div></div>'
+                    % (e(who), e(x["korean"]),
+                       "".join('<div class="stat"><span>%s</span><b>%s</b></div>'
+                               % (e(a), e(v)) for a, v in bits)))
+        seats = ('<section><h2>탑승 인원 <em>2</em></h2>'
+                 '<p class="sub">한 기에 둘이 탄다. 아래쪽은 따로 뽑을 수 없고 '
+                 '이 병종에 딸려 온다.</p>%s%s</section>'
+                 % (seat(u, "조종"), seat(mate, "탑승")))
+
     match = ""
     if u["strongAgainst"] or u["weakAgainst"]:
         match = """
 <section><h2>상성</h2><div class="split tight">
-  <div><h3 class="good">강하다</h3>%s</div>
-  <div><h3 class="bad">약하다</h3>%s</div>
+  <div><h3 class="good">유리</h3>%s</div>
+  <div><h3 class="bad">불리</h3>%s</div>
 </div></section>""" % (bullets(u["strongAgainst"], "good"), bullets(u["weakAgainst"], "bad"))
 
     lim = ""
@@ -767,14 +828,15 @@ def unit_page(u, builds):
 </header>
 %s
 <section><h2>제원</h2><div class="statgrid">%s</div>
-<table class="facts"><tbody><tr><th>비용</th><td>%s</td></tr></tbody></table></section>
+<table class="facts"><tbody>%s<tr><th>비용</th><td>%s</td></tr></tbody></table></section>
+%s
 %s
 %s
 %s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
-       "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, cost(u["cost"]),
-       lim, match, ups)
+       "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, gear,
+       cost(u["cost"]), seats, lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
 
@@ -1030,6 +1092,14 @@ main p a:hover { border-bottom-color:var(--gold); }
 }
 .steps b { font-weight:640; }
 .steps span { color:var(--dim); font-size:14px; }
+
+.seat h3 { margin:18px 0 8px; color:var(--ink); }
+.seat h3 .muted { font-weight:400; }
+.chip.ground { border-color:rgba(224,176,85,.45); color:var(--gold); }
+.chip.study { border-color:rgba(121,166,232,.45); color:var(--out); }
+.chip.ground em, .chip.study em { color:inherit; opacity:.7; }
+.legend { display:flex; gap:8px; margin-top:14px; }
+.legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
 
 .attack {
   border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;
