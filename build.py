@@ -828,10 +828,13 @@ def unit_page(u, builds, units):
         # the same number - the site had it at half for a while - and a player checking one
         # against the other should not have to work out that 재장전 and 공속 are the same
         # thing said twice.
+        two = u["ranged"] and u["hybrid"]
         if u["ranged"]:
-            stats.append(("공속", "%s초" % u.get("reloadSeconds", 0), "1발당"))
+            stats.append(("사격 공속" if two else "공속",
+                          "%s초" % u.get("reloadSeconds", 0), "1발당"))
         if not u["ranged"] or u["hybrid"]:
-            stats.append(("공속", "%s초" % u.get("secondsPerBlow", 0), "1회당"))
+            stats.append(("근접 공속" if two else "공속",
+                          "%s초" % u.get("secondsPerBlow", 0), "1회당"))
     stats += [
              ("사거리", str(u["range"]), ""),
              ("이동", str(u["blocksPerSecond"]), "블록/초"),
@@ -872,8 +875,14 @@ def unit_page(u, builds, units):
     rate = ""
     span = u["reloadSeconds"] if u["ranged"] else u["secondsPerBlow"]
     if u["damage"] > 0 and span:
-        rows = [("초당 피해", "%.1f" % (u["damage"] / span),
+        label = "사격 초당 피해" if u.get("meleeAttack") else "초당 피해"
+        rows = [(label, "%.1f" % (u["damage"] / span),
                  "공격력 %d ÷ 공속 %s초" % (u["damage"], span))]
+        # The blade keeps its own clock: secondsPerBlow, not the reload it does not use.
+        blow = u.get("secondsPerBlow")
+        if u.get("meleeAttack") and u.get("meleeDamage") and blow:
+            rows.append(("근접 초당 피해", "%.1f" % (u["meleeDamage"] / blow),
+                         "공격력 %d ÷ 공속 %s초" % (u["meleeDamage"], blow)))
         mate = units.get(u.get("crew")) if u.get("crew") else None
         if mate and mate["damage"] > 0:
             ms = mate["reloadSeconds"] if mate["ranged"] else mate["secondsPerBlow"]
@@ -999,17 +1008,30 @@ def unit_page(u, builds, units):
     # Composed in Docs.java out of the same fields the combat code reads, so it cannot
     # describe a weapon the unit does not carry. Newlines are real line breaks.
     # What is actually strapped on, which is also what the attack line names.
-    worn = []
-    if u.get("weapon"):
-        worn.append(u["weapon"])
-    if u.get("offhand"):
-        worn.append(u["offhand"])
-    gear = ("<tr><th>장비</th><td>%s</td></tr>" % e(" · ".join(worn))) if worn else ""
+    rows = []
+    if u["ranged"] and u.get("weapon"):
+        rows.append(("사격 무기", u["weapon"]))
+    melee = u.get("meleeWeapon")
+    if (not u["ranged"] or u["hybrid"]) and melee:
+        rows.append(("근접 무기", melee))
+    if not rows and u.get("mainHand"):
+        rows.append(("장비", u["mainHand"]))
+    off = u.get("offhand")
+    if off and off not in (u.get("weapon"), melee):
+        rows.append(("보조 손", off))
+    gear = "".join("<tr><th>%s</th><td>%s</td></tr>" % (e(a), e(v)) for a, v in rows)
 
-    attack = ""
-    if u.get("attack"):
-        lines = "".join("<p>%s</p>" % e(x) for x in u["attack"].split("\n") if x.strip())
-        attack = '<section class="attack"><h2>공격 방식</h2>%s</section>' % lines
+    def block(title, text):
+        if not text:
+            return ""
+        rows = "".join("<p>%s</p>" % e(x) for x in text.split("\n") if x.strip())
+        return '<section class="attack"><h2>%s</h2>%s</section>' % (title, rows)
+
+    # Two weapons, two blocks. A mercenary shoots or it fights; neither is a note on the
+    # other, and the melee one was reading as a footnote while it shared the paragraph.
+    hybrid = bool(u.get("meleeAttack"))
+    attack = block("사격 공격" if hybrid else "공격 방식", u.get("attack"))
+    attack += block("근접 공격", u.get("meleeAttack"))
 
     # Two on one mount, two sets of numbers.
     #
