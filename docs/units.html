@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>병종 · 마인토피아 TerritoryWar</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <a class="brand" href="index.html">마인토피아 <b>TerritoryWar</b></a>
+  <nav><a href="index.html">소개</a><a href="controls.html">조작</a><a href="races.html">종족</a><a href="buildings.html">건물</a><a href="units.html" class="on">병종</a><a href="research.html">연구</a></nav>
+</header>
+<main>
+
+<h1>병종 <span class="muted">93</span></h1>
+<p class="sub">티어는 무기고 계열 레벨로 열립니다 — T2는 Lv1, T5는 Lv4가 필요합니다.
+   소환되거나 탈것에 딸려오는 병종은 목록에서 뺐습니다.</p>
+
+<div class="filter">
+  <input id="q" type="search" placeholder="이름으로 거르기…" autocomplete="off">
+  <span class="races">
+    <button class="pill on" data-race="">전체</button>
+    <button class="pill out" data-race="OUTLANDER">이방인</button>
+    <button class="pill vil" data-race="VILLAGER">주민</button>
+    <button class="pill und" data-race="UNDEAD">언데드</button>
+    <button class="pill pig" data-race="PIGLIN">피글린</button>
+  </span>
+</div>
+<table class="list" id="tbl">
+<thead><tr><th class="num">T</th><th>이름</th><th>역할</th><th class="num">체력</th>
+<th class="num">공격</th><th class="num">사거리</th><th>비용</th><th>종족</th></tr></thead>
+<tbody>
+    <tr data-races="OUTLANDER" data-name="낙타 기수">
+      <td class="num">T1</td>
+      <td><a href="unit/CAMEL_RIDER.html">낙타 기수</a></td>
+      <td>근접</td>
+      <td class="num">16</td>
+      <td class="num">5</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 18</span> <span class="r wood">목재 6</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="도적">
+      <td class="num">T1</td>
+      <td><a href="unit/ROGUE.html">도적</a></td>
+      <td>근접</td>
+      <td class="num">11</td>
+      <td class="num">3</td>
+      <td class="num">3.5</td>
+      <td><span class="r ore">광물 4</span> <span class="r wood">목재 2</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="드라운드">
+      <td class="num">T1</td>
+      <td><a href="unit/DROWNED.html">드라운드</a></td>
+      <td>근접</td>
+      <td class="num">26</td>
+      <td class="num">5</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 8</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="마적">
+      <td class="num">T1</td>
+      <td><a href="unit/RAIDER.html">마적</a></td>
+      <td>근접</td>
+      <td class="num">15</td>
+      <td class="num">7</td>
+      <td class="num">3.8</td>
+      <td><span class="r ore">광물 11</span> <span class="r wood">목재 5</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="민병">
+      <td class="num">T1</td>
+      <td><a href="unit/MILITIA.html">민병</a></td>
+      <td>근접</td>
+      <td class="num">12</td>
+      <td class="num">3</td>
+      <td class="num">3.4</td>
+      <td><span class="muted">무료</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="벌 기수">
+      <td class="num">T1</td>
+      <td><a href="unit/BEE_RIDER.html">벌 기수</a></td>
+      <td>근접</td>
+      <td class="num">14</td>
+      <td class="num">4</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 10</span> <span class="r wood">목재 6</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="산적">
+      <td class="num">T1</td>
+      <td><a href="unit/HIGHLANDER.html">산적</a></td>
+      <td>근접</td>
+      <td class="num">16</td>
+      <td class="num">5</td>
+      <td class="num">3.4</td>
+      <td><span class="r ore">광물 6</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="새끼 좀비">
+      <td class="num">T1</td>
+      <td><a href="unit/ZOMBIE_WHELP.html">새끼 좀비</a></td>
+      <td>근접</td>
+      <td class="num">12</td>
+      <td class="num">3</td>
+      <td class="num">3.2</td>
+      <td><span class="r ore">광물 3</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스켈레톤">
+      <td class="num">T1</td>
+      <td><a href="unit/SKELETON.html">스켈레톤</a></td>
+      <td>근접</td>
+      <td class="num">14</td>
+      <td class="num">4</td>
+      <td class="num">3.4</td>
+      <td><span class="r ore">광물 2</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="좀비">
+      <td class="num">T1</td>
+      <td><a href="unit/SHAMBLER.html">좀비</a></td>
+      <td>근접</td>
+      <td class="num">24</td>
+      <td class="num">3</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 4</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="좀비 주민">
+      <td class="num">T1</td>
+      <td><a href="unit/ZOMBIE_VILLAGER.html">좀비 주민</a></td>
+      <td>근접</td>
+      <td class="num">14</td>
+      <td class="num">4</td>
+      <td class="num">4.6</td>
+      <td><span class="r ore">광물 6</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="창병">
+      <td class="num">T1</td>
+      <td><a href="unit/SPEARMAN.html">창병</a></td>
+      <td>근접</td>
+      <td class="num">18</td>
+      <td class="num">4</td>
+      <td class="num">6.5</td>
+      <td><span class="r ore">광물 6</span> <span class="r wood">목재 3</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="해병">
+      <td class="num">T1</td>
+      <td><a href="unit/MARINE.html">해병</a></td>
+      <td>근접</td>
+      <td class="num">18</td>
+      <td class="num">6</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 12</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="허스크">
+      <td class="num">T1</td>
+      <td><a href="unit/HUSK.html">허스크</a></td>
+      <td>근접</td>
+      <td class="num">30</td>
+      <td class="num">5</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 8</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="눈 골렘">
+      <td class="num">T1</td>
+      <td><a href="unit/SNOW_GOLEM.html">눈 골렘</a></td>
+      <td>원거리</td>
+      <td class="num">10</td>
+      <td class="num">3</td>
+      <td class="num">16</td>
+      <td><span class="r ore">광물 8</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="투석병">
+      <td class="num">T1</td>
+      <td><a href="unit/SLINGER.html">투석병</a></td>
+      <td>원거리</td>
+      <td class="num">12</td>
+      <td class="num">4</td>
+      <td class="num">12</td>
+      <td><span class="r ore">광물 3</span> <span class="r wood">목재 1</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="투창병">
+      <td class="num">T1</td>
+      <td><a href="unit/JAVELINEER.html">투창병</a></td>
+      <td>원거리</td>
+      <td class="num">15</td>
+      <td class="num">11</td>
+      <td class="num">14</td>
+      <td><span class="r ore">광물 5</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="알레이">
+      <td class="num">T1</td>
+      <td><a href="unit/ALLAY.html">알레이</a></td>
+      <td>지원</td>
+      <td class="num">8</td>
+      <td class="num">0</td>
+      <td class="num">10</td>
+      <td><span class="r ore">광물 10</span> <span class="r wood">목재 6</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="검기병">
+      <td class="num">T2</td>
+      <td><a href="unit/LIGHT_HORSE.html">검기병</a></td>
+      <td>근접</td>
+      <td class="num">26</td>
+      <td class="num">6</td>
+      <td class="num">4.2</td>
+      <td><span class="r ore">광물 20</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="검병">
+      <td class="num">T2</td>
+      <td><a href="unit/SWORDSMAN.html">검병</a></td>
+      <td>근접</td>
+      <td class="num">20</td>
+      <td class="num">5</td>
+      <td class="num">4</td>
+      <td><span class="r ore">광물 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="곰 기수">
+      <td class="num">T2</td>
+      <td><a href="unit/BEAR_RIDER.html">곰 기수</a></td>
+      <td>근접</td>
+      <td class="num">38</td>
+      <td class="num">9</td>
+      <td class="num">4.4</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="구리 골렘">
+      <td class="num">T2</td>
+      <td><a href="unit/COPPER_GOLEM.html">구리 골렘</a></td>
+      <td>근접</td>
+      <td class="num">30</td>
+      <td class="num">7</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 18</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="낙타 기수">
+      <td class="num">T2</td>
+      <td><a href="unit/HUSK_CAMEL_RIDER.html">낙타 기수</a></td>
+      <td>근접</td>
+      <td class="num">20</td>
+      <td class="num">5</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 14</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="도끼병">
+      <td class="num">T2</td>
+      <td><a href="unit/AXEMAN.html">도끼병</a></td>
+      <td>근접</td>
+      <td class="num">22</td>
+      <td class="num">8</td>
+      <td class="num">3.2</td>
+      <td><span class="r ore">광물 10</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="방패 창병">
+      <td class="num">T2</td>
+      <td><a href="unit/SHIELD_SPEAR.html">방패 창병</a></td>
+      <td>근접</td>
+      <td class="num">22</td>
+      <td class="num">4</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 12</span> <span class="r wood">목재 6</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="염소 기수">
+      <td class="num">T2</td>
+      <td><a href="unit/GOAT_RIDER.html">염소 기수</a></td>
+      <td>근접</td>
+      <td class="num">24</td>
+      <td class="num">7</td>
+      <td class="num">4</td>
+      <td><span class="r ore">광물 24</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="장창병">
+      <td class="num">T2</td>
+      <td><a href="unit/PIKEMAN.html">장창병</a></td>
+      <td>근접</td>
+      <td class="num">20</td>
+      <td class="num">4</td>
+      <td class="num">7.5</td>
+      <td><span class="r ore">광물 12</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="치킨 조키">
+      <td class="num">T2</td>
+      <td><a href="unit/CHICKEN_JOCKEY.html">치킨 조키</a></td>
+      <td>근접</td>
+      <td class="num">12</td>
+      <td class="num">4</td>
+      <td class="num">3.2</td>
+      <td><span class="r ore">광물 8</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="판다 기수">
+      <td class="num">T2</td>
+      <td><a href="unit/PANDA_RIDER.html">판다 기수</a></td>
+      <td>근접</td>
+      <td class="num">38</td>
+      <td class="num">9</td>
+      <td class="num">4.4</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="PIGLIN" data-name="호글린">
+      <td class="num">T2</td>
+      <td><a href="unit/HOGLIN.html">호글린</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">9</td>
+      <td class="num">4.2</td>
+      <td><span class="r ore">광물 16</span></td>
+      <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="견습생">
+      <td class="num">T2</td>
+      <td><a href="unit/APPRENTICE.html">견습생</a></td>
+      <td>원거리</td>
+      <td class="num">16</td>
+      <td class="num">7</td>
+      <td class="num">15</td>
+      <td><span class="r ore">광물 12</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="궁기병">
+      <td class="num">T2</td>
+      <td><a href="unit/HORSE_ARCHER.html">궁기병</a></td>
+      <td>원거리</td>
+      <td class="num">20</td>
+      <td class="num">5</td>
+      <td class="num">14</td>
+      <td><span class="r ore">광물 22</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="궁수">
+      <td class="num">T2</td>
+      <td><a href="unit/ARCHER.html">궁수</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">5</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 8</span> <span class="r wood">목재 4</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="보그드">
+      <td class="num">T2</td>
+      <td><a href="unit/BOGGED.html">보그드</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">4</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 10</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="상인 라마">
+      <td class="num">T2</td>
+      <td><a href="unit/TRADER_LLAMA.html">상인 라마</a></td>
+      <td>원거리</td>
+      <td class="num">26</td>
+      <td class="num">6</td>
+      <td class="num">17</td>
+      <td><span class="r ore">광물 18</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="쇠뇌수">
+      <td class="num">T2</td>
+      <td><a href="unit/CROSSBOW.html">쇠뇌수</a></td>
+      <td>원거리</td>
+      <td class="num">16</td>
+      <td class="num">9</td>
+      <td class="num">24</td>
+      <td><span class="r ore">광물 12</span> <span class="r wood">목재 6</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="수도사">
+      <td class="num">T2</td>
+      <td><a href="unit/MONK.html">수도사</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">6</td>
+      <td class="num">14</td>
+      <td><span class="r ore">광물 10</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스켈레톤 궁수">
+      <td class="num">T2</td>
+      <td><a href="unit/BONE_ARCHER.html">스켈레톤 궁수</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">5</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 6</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스켈레톤 낙타 궁수">
+      <td class="num">T2</td>
+      <td><a href="unit/HUSK_CAMEL_ARCHER.html">스켈레톤 낙타 궁수</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">4</td>
+      <td class="num">16</td>
+      <td><span class="muted">무료</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스트레이">
+      <td class="num">T2</td>
+      <td><a href="unit/STRAY.html">스트레이</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">5</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 10</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="약탈자">
+      <td class="num">T2</td>
+      <td><a href="unit/PILLAGER.html">약탈자</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">8</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 16</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="파치트">
+      <td class="num">T2</td>
+      <td><a href="unit/PARCHED.html">파치트</a></td>
+      <td>원거리</td>
+      <td class="num">14</td>
+      <td class="num">7</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 10</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="팬텀 기수">
+      <td class="num">T2</td>
+      <td><a href="unit/PHANTOM_RIDER.html">팬텀 기수</a></td>
+      <td>원거리</td>
+      <td class="num">16</td>
+      <td class="num">6</td>
+      <td class="num">16</td>
+      <td><span class="r ore">광물 18</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="공병">
+      <td class="num">T2</td>
+      <td><a href="unit/ENGINEER.html">공병</a></td>
+      <td>지원</td>
+      <td class="num">14</td>
+      <td class="num">2</td>
+      <td class="num">3</td>
+      <td><span class="r ore">광물 15</span> <span class="r wood">목재 15</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="격투가">
+      <td class="num">T3</td>
+      <td><a href="unit/BRAWLER.html">격투가</a></td>
+      <td>근접</td>
+      <td class="num">26</td>
+      <td class="num">3</td>
+      <td class="num">3</td>
+      <td><span class="r ore">광물 9</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="광전사">
+      <td class="num">T3</td>
+      <td><a href="unit/BERSERKER.html">광전사</a></td>
+      <td>근접</td>
+      <td class="num">24</td>
+      <td class="num">12</td>
+      <td class="num">3.4</td>
+      <td><span class="r ore">광물 26</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="대검병">
+      <td class="num">T3</td>
+      <td><a href="unit/GREATSWORD.html">대검병</a></td>
+      <td>근접</td>
+      <td class="num">28</td>
+      <td class="num">8</td>
+      <td class="num">4.5</td>
+      <td><span class="r ore">광물 24</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="PIGLIN" data-name="마그마 큐브">
+      <td class="num">T3</td>
+      <td><a href="unit/MAGMA_CUBE.html">마그마 큐브</a></td>
+      <td>근접</td>
+      <td class="num">36</td>
+      <td class="num">10</td>
+      <td class="num">3.6</td>
+      <td><span class="r ore">광물 34</span></td>
+      <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="변명자">
+      <td class="num">T3</td>
+      <td><a href="unit/VINDICATOR.html">변명자</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">13</td>
+      <td class="num">3.8</td>
+      <td><span class="r ore">광물 28</span> <span class="r wood">목재 12</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="위더 스켈레톤">
+      <td class="num">T3</td>
+      <td><a href="unit/WITHER_SKELETON.html">위더 스켈레톤</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">9</td>
+      <td class="num">4.2</td>
+      <td><span class="r ore">광물 18</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="좀비 기병">
+      <td class="num">T3</td>
+      <td><a href="unit/ZOMBIE_RIDER.html">좀비 기병</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">7</td>
+      <td class="num">4</td>
+      <td><span class="r ore">광물 20</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="창기병">
+      <td class="num">T3</td>
+      <td><a href="unit/LANCER.html">창기병</a></td>
+      <td>근접</td>
+      <td class="num">32</td>
+      <td class="num">7</td>
+      <td class="num">5.5</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="파괴수">
+      <td class="num">T3</td>
+      <td><a href="unit/RAVAGER.html">파괴수</a></td>
+      <td>근접</td>
+      <td class="num">52</td>
+      <td class="num">11</td>
+      <td class="num">4.2</td>
+      <td><span class="r ore">광물 34</span> <span class="r wood">목재 16</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="할버드병">
+      <td class="num">T3</td>
+      <td><a href="unit/HALBERDIER.html">할버드병</a></td>
+      <td>근접</td>
+      <td class="num">40</td>
+      <td class="num">11</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 26</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="히포그리프 기수">
+      <td class="num">T3</td>
+      <td><a href="unit/HIPPOGRYPH_RIDER.html">히포그리프 기수</a></td>
+      <td>근접</td>
+      <td class="num">30</td>
+      <td class="num">9</td>
+      <td class="num">5</td>
+      <td><span class="r ore">광물 28</span> <span class="r wood">목재 16</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="군견병">
+      <td class="num">T3</td>
+      <td><a href="unit/HOUNDSMAN.html">군견병</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">6</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 24</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="마녀">
+      <td class="num">T3</td>
+      <td><a href="unit/WITCH.html">마녀</a></td>
+      <td>원거리</td>
+      <td class="num">22</td>
+      <td class="num">8</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 28</span> <span class="r wood">목재 16</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="마법사">
+      <td class="num">T3</td>
+      <td><a href="unit/MAGE.html">마법사</a></td>
+      <td>원거리</td>
+      <td class="num">16</td>
+      <td class="num">9</td>
+      <td class="num">21</td>
+      <td><span class="r ore">광물 35</span> <span class="r wood">목재 22</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="방패 쇠뇌수">
+      <td class="num">T3</td>
+      <td><a href="unit/PAVISE.html">방패 쇠뇌수</a></td>
+      <td>원거리</td>
+      <td class="num">22</td>
+      <td class="num">9</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 20</span> <span class="r wood">목재 12</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="벌룬">
+      <td class="num">T3</td>
+      <td><a href="unit/BALLOON.html">벌룬</a></td>
+      <td>원거리</td>
+      <td class="num">20</td>
+      <td class="num">7</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 20</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="PIGLIN" data-name="블레이즈">
+      <td class="num">T3</td>
+      <td><a href="unit/BLAZE.html">블레이즈</a></td>
+      <td>원거리</td>
+      <td class="num">24</td>
+      <td class="num">9</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 30</span></td>
+      <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="사냥꾼">
+      <td class="num">T3</td>
+      <td><a href="unit/HUNTER.html">사냥꾼</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">7</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 20</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="삼지창 드라운드">
+      <td class="num">T3</td>
+      <td><a href="unit/TRIDENT_DROWNED.html">삼지창 드라운드</a></td>
+      <td>원거리</td>
+      <td class="num">28</td>
+      <td class="num">11</td>
+      <td class="num">17</td>
+      <td><span class="r ore">광물 16</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스켈레톤 기병">
+      <td class="num">T3</td>
+      <td><a href="unit/BONE_RIDER.html">스켈레톤 기병</a></td>
+      <td>원거리</td>
+      <td class="num">24</td>
+      <td class="num">6</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 18</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="용병">
+      <td class="num">T3</td>
+      <td><a href="unit/MERCENARY.html">용병</a></td>
+      <td>원거리</td>
+      <td class="num">22</td>
+      <td class="num">7</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 18</span> <span class="r wood">목재 8</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="척탄병">
+      <td class="num">T3</td>
+      <td><a href="unit/GRENADIER.html">척탄병</a></td>
+      <td>원거리</td>
+      <td class="num">24</td>
+      <td class="num">34</td>
+      <td class="num">15</td>
+      <td><span class="r ore">광물 24</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="철기병">
+      <td class="num">T3</td>
+      <td><a href="unit/CUIRASSIER.html">철기병</a></td>
+      <td>원거리</td>
+      <td class="num">30</td>
+      <td class="num">8</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 34</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="폭죽 쇠뇌수">
+      <td class="num">T3</td>
+      <td><a href="unit/ROCKETEER.html">폭죽 쇠뇌수</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">7</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 26</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="환술사">
+      <td class="num">T3</td>
+      <td><a href="unit/ILLUSIONER.html">환술사</a></td>
+      <td>원거리</td>
+      <td class="num">20</td>
+      <td class="num">9</td>
+      <td class="num">24</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 18</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="성직자">
+      <td class="num">T3</td>
+      <td><a href="unit/CLERIC.html">성직자</a></td>
+      <td>지원</td>
+      <td class="num">20</td>
+      <td class="num">0</td>
+      <td class="num">11</td>
+      <td><span class="r ore">광물 20</span> <span class="r wood">목재 12</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="기사">
+      <td class="num">T4</td>
+      <td><a href="unit/KNIGHT.html">기사</a></td>
+      <td>근접</td>
+      <td class="num">42</td>
+      <td class="num">10</td>
+      <td class="num">4.2</td>
+      <td><span class="r ore">광물 50</span> <span class="r wood">목재 20</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="드래곤 기수">
+      <td class="num">T4</td>
+      <td><a href="unit/DRAGON_RIDER.html">드래곤 기수</a></td>
+      <td>근접</td>
+      <td class="num">46</td>
+      <td class="num">12</td>
+      <td class="num">6</td>
+      <td><span class="r ore">광물 60</span> <span class="r wood">목재 34</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="랜스 기병">
+      <td class="num">T4</td>
+      <td><a href="unit/LANCE_CAVALRY.html">랜스 기병</a></td>
+      <td>근접</td>
+      <td class="num">38</td>
+      <td class="num">6</td>
+      <td class="num">5.5</td>
+      <td><span class="r ore">광물 52</span> <span class="r wood">목재 22</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="무술가">
+      <td class="num">T4</td>
+      <td><a href="unit/MARTIAL_ARTIST.html">무술가</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">5</td>
+      <td class="num">3.2</td>
+      <td><span class="r ore">광물 30</span> <span class="r wood">목재 10</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="자이언트">
+      <td class="num">T4</td>
+      <td><a href="unit/GIANT.html">자이언트</a></td>
+      <td>근접</td>
+      <td class="num">90</td>
+      <td class="num">10</td>
+      <td class="num">5</td>
+      <td><span class="r ore">광물 30</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="천마 기수">
+      <td class="num">T4</td>
+      <td><a href="unit/PEGASUS_RIDER.html">천마 기수</a></td>
+      <td>근접</td>
+      <td class="num">34</td>
+      <td class="num">10</td>
+      <td class="num">5.5</td>
+      <td><span class="r ore">광물 44</span> <span class="r wood">목재 24</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="철 골렘">
+      <td class="num">T4</td>
+      <td><a href="unit/IRON_GOLEM.html">철 골렘</a></td>
+      <td>근접</td>
+      <td class="num">70</td>
+      <td class="num">16</td>
+      <td class="num">4.4</td>
+      <td><span class="r ore">광물 55</span> <span class="r wood">목재 24</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="PIGLIN" data-name="가스트">
+      <td class="num">T4</td>
+      <td><a href="unit/GHAST.html">가스트</a></td>
+      <td>원거리</td>
+      <td class="num">30</td>
+      <td class="num">14</td>
+      <td class="num">26</td>
+      <td><span class="r ore">광물 52</span></td>
+      <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="강령술사">
+      <td class="num">T4</td>
+      <td><a href="unit/NECROMANCER.html">강령술사</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">8</td>
+      <td class="num">19</td>
+      <td><span class="r ore">광물 45</span> <span class="r wood">목재 28</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="검투사">
+      <td class="num">T4</td>
+      <td><a href="unit/CHAMPION.html">검투사</a></td>
+      <td>원거리</td>
+      <td class="num">36</td>
+      <td class="num">15</td>
+      <td class="num">19</td>
+      <td><span class="r ore">광물 45</span> <span class="r wood">목재 20</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="방패 총병">
+      <td class="num">T4</td>
+      <td><a href="unit/SHIELD_MUSKET.html">방패 총병</a></td>
+      <td>원거리</td>
+      <td class="num">28</td>
+      <td class="num">11</td>
+      <td class="num">12</td>
+      <td><span class="r ore">광물 34</span> <span class="r wood">목재 14</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="소환사">
+      <td class="num">T4</td>
+      <td><a href="unit/EVOKER.html">소환사</a></td>
+      <td>원거리</td>
+      <td class="num">24</td>
+      <td class="num">9</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 50</span> <span class="r wood">목재 26</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="UNDEAD" data-name="스파이더 조키">
+      <td class="num">T4</td>
+      <td><a href="unit/SPIDER_JOCKEY.html">스파이더 조키</a></td>
+      <td>원거리</td>
+      <td class="num">26</td>
+      <td class="num">7</td>
+      <td class="num">21</td>
+      <td><span class="r ore">광물 26</span></td>
+      <td class="pills"><a class="pill und" href="race/UNDEAD.html">언데드</a></td>
+    </tr>
+    <tr data-races="VILLAGER" data-name="습격 대장">
+      <td class="num">T4</td>
+      <td><a href="unit/RAID_CAPTAIN.html">습격 대장</a></td>
+      <td>원거리</td>
+      <td class="num">30</td>
+      <td class="num">11</td>
+      <td class="num">24</td>
+      <td><span class="r ore">광물 48</span> <span class="r wood">목재 24</span></td>
+      <td class="pills"><a class="pill vil" href="race/VILLAGER.html">주민</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="얼음 마법사">
+      <td class="num">T4</td>
+      <td><a href="unit/CRYOMANCER.html">얼음 마법사</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">9</td>
+      <td class="num">22</td>
+      <td><span class="r ore">광물 45</span> <span class="r wood">목재 28</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="총기병">
+      <td class="num">T4</td>
+      <td><a href="unit/DRAGOON.html">총기병</a></td>
+      <td>원거리</td>
+      <td class="num">24</td>
+      <td class="num">13</td>
+      <td class="num">16</td>
+      <td><span class="r ore">광물 42</span> <span class="r wood">목재 16</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="총병">
+      <td class="num">T4</td>
+      <td><a href="unit/MUSKETEER.html">총병</a></td>
+      <td>원거리</td>
+      <td class="num">20</td>
+      <td class="num">18</td>
+      <td class="num">26</td>
+      <td><span class="r ore">광물 40</span> <span class="r wood">목재 18</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="추기경">
+      <td class="num">T4</td>
+      <td><a href="unit/CARDINAL.html">추기경</a></td>
+      <td>원거리</td>
+      <td class="num">28</td>
+      <td class="num">9</td>
+      <td class="num">18</td>
+      <td><span class="r ore">광물 40</span> <span class="r wood">목재 26</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="화염 마법사">
+      <td class="num">T4</td>
+      <td><a href="unit/PYROMANCER.html">화염 마법사</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">11</td>
+      <td class="num">20</td>
+      <td><span class="r ore">광물 45</span> <span class="r wood">목재 28</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="군악대">
+      <td class="num">T4</td>
+      <td><a href="unit/BANDSMAN.html">군악대</a></td>
+      <td>지원</td>
+      <td class="num">26</td>
+      <td class="num">0</td>
+      <td class="num">16</td>
+      <td><span class="r ore">광물 38</span> <span class="r wood">목재 20</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="수호자">
+      <td class="num">T5</td>
+      <td><a href="unit/GUARDIAN.html">수호자</a></td>
+      <td>근접</td>
+      <td class="num">60</td>
+      <td class="num">12</td>
+      <td class="num">5</td>
+      <td><span class="r ore">광물 85</span> <span class="r wood">목재 40</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr>
+    <tr data-races="PIGLIN" data-name="위더">
+      <td class="num">T5</td>
+      <td><a href="unit/WITHER.html">위더</a></td>
+      <td>원거리</td>
+      <td class="num">80</td>
+      <td class="num">16</td>
+      <td class="num">24</td>
+      <td><span class="r ore">광물 120</span></td>
+      <td class="pills"><a class="pill pig" href="race/PIGLIN.html">피글린</a></td>
+    </tr>
+    <tr data-races="OUTLANDER" data-name="저격병">
+      <td class="num">T5</td>
+      <td><a href="unit/SNIPER.html">저격병</a></td>
+      <td>원거리</td>
+      <td class="num">18</td>
+      <td class="num">26</td>
+      <td class="num">48</td>
+      <td><span class="r ore">광물 70</span> <span class="r wood">목재 30</span></td>
+      <td class="pills"><a class="pill out" href="race/OUTLANDER.html">이방인</a></td>
+    </tr></tbody></table>
+
+<script>
+(function () {
+  var q = document.getElementById('q');
+  var rows = [].slice.call(document.querySelectorAll('#tbl tbody tr'));
+  var race = '';
+  function apply() {
+    var t = q.value.trim();
+    rows.forEach(function (r) {
+      var okName = !t || r.dataset.name.indexOf(t) !== -1;
+      var okRace = !race || r.dataset.races.split(' ').indexOf(race) !== -1;
+      r.hidden = !(okName && okRace);
+    });
+  }
+  q.addEventListener('input', apply);
+  [].slice.call(document.querySelectorAll('.races .pill')).forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.races .pill').forEach(function (x) {
+        x.classList.remove('on');
+      });
+      b.classList.add('on');
+      race = b.dataset.race;
+      apply();
+    });
+  });
+})();
+</script>
+
+</main>
+<footer>
+  타일 기반 실시간 전략 · 마인크래프트 플러그인 ·
+  이 페이지의 모든 수치는 게임 데이터에서 자동 생성됩니다
+</footer>
+</body>
+</html>

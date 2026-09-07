@@ -1,0 +1,9 @@
+# 문서 사이트만 담습니다. 플러그인 소스도, 서버 설정도, 자격 증명도 넣지 않습니다.
+*.jar
+dropbox.json
+server.properties
+*.key
+*.token
+secrets*
+__pycache__/
+.DS_Store
