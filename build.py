@@ -206,7 +206,7 @@ def index(doc):
   <div>
     <h2>이 문서에 대하여</h2>
     <p>이 표들은 어디서 왔나. 서버 콘솔에서 <code>tw docs</code> 를 치면 플러그인이
-       자기 데이터를 그대로 뱉고, 이 페이지들은 그것만 읽어 만들어진다.
+       자기 데이터를 그대로 뱉는다. 이 페이지들은 그것만 읽어 만들어지니
        밸런스를 고치면 문서도 같이 따라온다.</p>
     <p class="links">
       <a href="docs.json">docs.json 내려받기</a>
@@ -387,21 +387,87 @@ def race_index(doc):
     write("races.html", page(0, "종족", body, "races.html"))
 
 
+# How each people actually plays, which no table was ever going to say.
+#
+# The page used to open on seven yes/no rows - 민간인 있음, 자연 증가 없음 - and a reader
+# who did not already know the game learned nothing from them. A row can hold the fact
+# that a warband has no civilians. It cannot say that this is the whole of why a warband
+# raids, or that losing the pens costs it the next generation rather than a building.
+PLAYSTYLE = {
+    "OUTLANDER": [
+        "무엇 하나 특별히 잘하지 않는 대신 못하는 것도 없다. 사람을 뽑아 아무 일에나 "
+        "붙이고 밭도 광산도 병영도 전부 자기 손으로 짓는다. 지형이 나쁘면 그 지형에 "
+        "맞는 건물을 올려 답한다. 사막에는 선인장 농장, 호수에는 낚시터. 다른 세 "
+        "종족은 못 하는 일.",
+
+        "연구소와 대학은 이들만의 것. 연구소는 다섯 갈래에서 하나씩만 고르게 하니 "
+        "무엇을 포기할지가 곧 노선이 된다. 대학은 병종별 교리를 가르쳐 이미 세워둔 "
+        "부대까지 소급해 바꾼다. 정책도 이들만 고른다. 건국 정책 하나에 노선 셋. "
+        "합쳐 넷을 정하고 그대로 간다.",
+
+        "약점은 값. 남들이 종족 특성으로 공짜로 얻는 것을 이들은 전부 자원과 시간으로 "
+        "산다. 인구가 저절로 늘어나는 만큼 먹이기도 해야 한다. 병사 하나를 뽑을 "
+        "때마다 밭에서 한 명이 빠진다. 판을 길게 끌수록 유리한 쪽.",
+    ],
+    "VILLAGER": [
+        "번식으로 늘어나고 한 번 배운 직업은 바뀌지 않는다. 그래서 무엇을 짓느냐가 곧 "
+        "어떤 마을이 되느냐를 정한다. 밀밭과 에메랄드 광산과 제재소, 셋이 경제의 전부. "
+        "지형별 특산 농장은 없다. 땅이 나쁘면 다른 걸 짓는 대신 다른 데로 간다.",
+
+        "병영이 없다. 주민은 스스로 싸우지 않고 용병 시장에서 사람을 산다. 용병은 "
+        "인구를 쓰지 않고 임금으로 유지되니 인구 한도와 병력 규모가 서로 발목을 잡지 "
+        "않는다. 대신 세울 수 있는 것이 골렘과 우민. 종루에 우민을 올리면 사거리가 "
+        "늘어난다.",
+
+        "연구소도 대학도 없어 기술 트리가 통째로 비어 있다. 그 대가로 연구가 걸린 "
+        "건물 레벨 제한을 받지 않는다. 밀밭이든 주민 집이든 자원만 있으면 Lv4까지 그냥 "
+        "올라간다. 고를 정책도 없는 종족. 그만큼 판이 단순하고 손이 덜 간다.",
+    ],
+    "UNDEAD": [
+        "먹지 않고 낳지 않는다. 식량 건물이 아예 없고 집도 짓지 않는다. 늘어나는 길은 "
+        "하나뿐. 전장을 지키고 남은 시체를 거두는 것이다. 이겨도 물러나면 시체를 "
+        "놓치니 이 종족에게 후퇴는 병력 손실과 같은 말이다.",
+
+        "납골당이 소유할 수 있는 시체 수를 정하고 그게 곧 병력 상한이다. 제단에서 "
+        "유해를 일으켜 병사를 세우는데 소생체는 계급도 능력치도 물려받지 않는다. "
+        "치료도 되지 않는다. 부서지면 그걸로 끝. 다시 일으키는 수밖에 없다.",
+
+        "굶지 않으니 보급 걱정 없이 멀리 나간다. 인구도 안 먹고 집도 안 짓는 만큼 "
+        "자원이 통째로 군비로 간다. 초반이 느리고 전장을 한 번 잡으면 눈덩이처럼 "
+        "불어나는 쪽. 첫 싸움에서 밀리면 회복할 방법이 마땅치 않다.",
+    ],
+    "PIGLIN": [
+        "민간인과 병사가 같은 몸이다. 징집이라는 절차가 없고 병사를 뽑으면 그 값을 "
+        "치를 뿐이다. 번식도 하지 않는다. 늘어나는 유일한 길은 남의 주민을 잡아와 "
+        "수용소에 가두는 것. 이 종족에게 전쟁은 인구 정책이기도 하다.",
+
+        "광물을 캐지 못한다. 이들에게 광물은 금이고 금은 교역소에서 목재와 식량을 "
+        "바꿔 얻는다. 환율이 나쁘니 금이 드는 것은 전부 비싸다. 건물은 전부 목재라 "
+        "벌목대가 곧 국력. 괴수 우리 하나가 대장간과 마굿간을 겸한다.",
+
+        "괴수 우리 레벨이 호글린에서 블레이즈, 가스트, 위더 순으로 열린다. 연구소가 "
+        "없어 연구 없이 Lv4까지 올라가니 자원만 모으면 최상위 병종에 닿는다. 병사가 "
+        "곧 인부. 군대를 놀려두면 경제가 살고 내보내면 건설이 멈춘다. 그 줄타기가 이 "
+        "종족의 전부.",
+    ],
+}
+
+
 def race_page(r, builds, units):
     rid = r["id"]
+    prose = "".join("<p>%s</p>" % t for t in PLAYSTYLE.get(rid, []))
     facts = [
-        ("무기고 계열", builds[r["armoury"]]["korean"], "병종 티어를 여는 건물"),
-        ("주거 계열", builds[r["quarters"]]["korean"], "인구 한도를 올리는 건물"),
-        ("연구소", "가능" if r["researches"] else "불가",
-         "연구소를 못 짓는 종족은 연구 없이 모든 건물이 Lv4까지 간다"),
-        ("민간인", "있음" if r["keepsCivilians"] else "없음",
-         "민간인이 없으면 징집 대신 값을 치러 병력을 얻는다"),
-        ("자연 증가", "있음" if r["growsOnItsOwn"] else "없음", ""),
-        ("시체 수급", "있음" if r["reapsRemains"] else "없음", ""),
-        ("식량 소모", "x%s" % r["ration"], "병사 한 명당 배급 배율"),
+        ("무기고 계열", builds[r["armoury"]]["korean"]),
+        ("주거 계열", builds[r["quarters"]]["korean"]),
+        ("연구", "연구소·대학" if r["researches"] else "없음 · 건물 Lv4 제한 면제"),
+        ("인구", "번식" if r["growsOnItsOwn"] else
+                 ("시체 수급" if r["reapsRemains"] else "포로")),
+        ("병력", "징집" if r["keepsCivilians"] else "값을 치러 얻음"),
+        ("배급", "x%s" % r["ration"]),
+        ("정책", "고름" if r["choosesPolicy"] else "없음"),
     ]
-    ft = "".join("<tr><th>%s</th><td><b>%s</b></td><td class='muted'>%s</td></tr>"
-                 % (e(a), e(b), e(c)) for a, b, c in facts)
+    ft = "".join('<div class="stat"><span>%s</span><b>%s</b></div>'
+                 % (e(a), e(b)) for a, b in facts)
 
     chips = "".join(
         '<a class="chip" href="../building/%s.html">%s</a>' % (i, e(builds[i]["korean"]))
@@ -428,14 +494,16 @@ def race_page(r, builds, units):
   <p class="lead">%s</p>
 </header>
 
-<section><h2>기본기</h2><table class="facts"><tbody>%s</tbody></table></section>
+<section class="playstyle"><h2>어떻게 노는 종족인가</h2>%s</section>
+
+<section><h2>한눈에</h2><div class="statgrid wide-stat">%s</div></section>
 
 <section><h2>지을 수 있는 건물 <em>%d</em></h2><div class="chips">%s</div></section>
 
 <section><h2>뽑을 수 있는 병종 <em>%d</em></h2>%s</section>
 
 <section><h2>정책 <em>%d</em></h2><table class="cmds"><tbody>%s</tbody></table></section>
-""" % (e(r["korean"]), RACE_TAG[rid], e(r["korean"]), e(r["blurb"]), ft,
+""" % (e(r["korean"]), RACE_TAG[rid], e(r["korean"]), e(r["blurb"]), prose, ft,
        len(r["buildings"]), chips,
        len(r["units"]), ulist or '<p class="muted">훈련으로 얻는 병종이 없다.</p>',
        len(r["policies"]), pol or "<tr><td class='muted'>정책을 고르지 않는 종족.</td></tr>")
@@ -587,11 +655,31 @@ def listing_units(doc):
 
 
 def unit_page(u, builds):
+    def pct(x):
+        return "%d%%" % round(x * 100)
+
     stats = [("체력", str(u["maxHp"]), ""),
              ("공격력", str(u["damage"]), ""),
+             ("방어력", str(u.get("armour", 0)), ""),
+             ]
+    # A shooter's rate is its reload; secondsPerBlow describes a melee swing it may never
+    # make. Both, for the ones that do both.
+    if u["ranged"]:
+        stats.append(("재장전", "%s초" % u.get("reloadSeconds", 0), "1발당"))
+    if not u["ranged"] or u["hybrid"]:
+        stats.append(("공격 속도", "%s초" % u.get("secondsPerBlow", 0), "1회당"))
+    stats += [
              ("사거리", str(u["range"]), ""),
              ("이동", str(u["blocksPerSecond"]), "블록/초"),
              ("유지비", str(u["upkeep"]), "")]
+    for key, label, note in [("crit", "치명타", ""), ("evasion", "회피", ""),
+                             ("block", "막기", ""), ("magicResist", "마법 저항", ""),
+                             ("pierceArmour", "방어 관통", "")]:
+        v = u.get(key) or 0
+        if v:
+            stats.append((label, pct(v), note))
+    if u.get("skill"):
+        stats.append(("기술", str(u["skill"]), ""))
     if u["residents"] != 1:
         stats.append(("차지 인구", "%d명" % u["residents"], ""))
     if u["hireCost"]:
@@ -600,8 +688,18 @@ def unit_page(u, builds):
         '<div class="stat"><span>%s</span><b>%s</b>%s</div>'
         % (e(a), e(v), "<i>%s</i>" % e(n) if n else "") for a, v, n in stats)
 
+    # The traits the game itself keeps, plus the two it does not put in that list.
+    #
+    # abilities() already names 돌격 · 기마 · 장벽 도약 and a dozen more, and the page was
+    # ignoring all of it in favour of six booleans. Flying is the one real gap in that
+    # list - every other entry is something a soldier does and this one is where he
+    # stands, so a dragon rider read as ordinary cavalry.
     tags = []
-    for key, label in [("ranged", "원거리"), ("hybrid", "근접 겸용"), ("mounted", "기승"),
+    if u.get("flies"):
+        tags.append('<span class="tag fly">비행</span>')
+    for a in (u.get("abilities") or []):
+        tags.append('<span class="tag able">%s</span>' % e(a))
+    for key, label in [("ranged", "원거리"), ("hybrid", "근접 겸용"),
                        ("medic", "치유"), ("hired", "용병"), ("undead", "소생체"),
                        ("militia", "민병"), ("mindless", "야수"), ("golem", "골렘"),
                        ("summoned", "소환"), ("crewOnly", "승무원")]:
@@ -640,6 +738,13 @@ def unit_page(u, builds):
                "무기고는 근접·원거리로, 연구소는 손에 든 무기로, 대학은 병종 명단으로 고른다.</p>"
                "%s</section>" % "".join(blocks))
 
+    # Composed in Docs.java out of the same fields the combat code reads, so it cannot
+    # describe a weapon the unit does not carry. Newlines are real line breaks.
+    attack = ""
+    if u.get("attack"):
+        lines = "".join("<p>%s</p>" % e(x) for x in u["attack"].split("\n") if x.strip())
+        attack = '<section class="attack"><h2>공격 방식</h2>%s</section>' % lines
+
     match = ""
     if u["strongAgainst"] or u["weakAgainst"]:
         match = """
@@ -660,6 +765,7 @@ def unit_page(u, builds):
   <p class="tags">%s</p>
   <p class="pills">%s</p>
 </header>
+%s
 <section><h2>제원</h2><div class="statgrid">%s</div>
 <table class="facts"><tbody><tr><th>비용</th><td>%s</td></tr></tbody></table></section>
 %s
@@ -667,7 +773,7 @@ def unit_page(u, builds):
 %s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
-       "".join(tags), race_pills(u["fieldableBy"], "../"), grid, cost(u["cost"]),
+       "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, cost(u["cost"]),
        lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
@@ -925,6 +1031,20 @@ main p a:hover { border-bottom-color:var(--gold); }
 .steps b { font-weight:640; }
 .steps span { color:var(--dim); font-size:14px; }
 
+.attack {
+  border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;
+}
+.attack p { color:var(--ink); font-size:15px; margin:0 0 6px; }
+.attack p:last-child { margin-bottom:0; }
+.attack p ~ p { color:var(--dim); font-size:14px; }
+
+.playstyle p {
+  color:var(--dim); font-size:15.5px; line-height:1.85; max-width:66ch; margin-bottom:18px;
+}
+.playstyle p:first-of-type { color:var(--ink); }
+.statgrid.wide-stat { grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+.statgrid.wide-stat .stat b { font-size:15px; font-weight:600; letter-spacing:0; }
+
 .split { display:grid; gap:36px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
 .split.tight { gap:24px; }
 .split p { color:var(--dim); font-size:14.5px; }
@@ -1007,6 +1127,8 @@ button.pill:hover { border-color:var(--line2); }
   background:var(--panel2); color:var(--dim); font-size:12px; border:1px solid var(--line);
 }
 .tag.off { color:var(--bad); border-color:rgba(224,130,120,.3); }
+.tag.able { color:var(--ink); border-color:var(--line2); }
+.tag.fly { color:var(--out); border-color:rgba(121,166,232,.45); }
 
 .r i { font-style:normal; font-size:12.5px; white-space:nowrap; margin-right:9px; }
 .r i:last-child { margin-right:0; }

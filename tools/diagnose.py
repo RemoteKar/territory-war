@@ -26,7 +26,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, "..", "docs")
 
 PAGES = ["index.html", "races.html", "buildings.html", "units.html",
-         "research.html", "controls.html"]
+         "research.html", "controls.html",
+         "race/OUTLANDER.html", "race/VILLAGER.html",
+         "race/UNDEAD.html", "race/PIGLIN.html"]
 
 
 def prose():
@@ -39,6 +41,9 @@ def prose():
         s = io.open(p, encoding="utf-8").read()
         s = re.sub(r"<script.*?</script>", "", s, flags=re.S)
         blocks = re.findall(r'<p class="(?:lead|sub)">(.*?)</p>', s, re.S)
+        # The race pages carry the longest hand-written stretch on the site.
+        for sec in re.findall(r'<section class="playstyle">(.*?)</section>', s, re.S):
+            blocks += re.findall(r"<p>(.*?)</p>", sec, re.S)
         blocks += re.findall(r'<div>\s*<h2>.*?</h2>(.*?)</div>', s, re.S)
         blocks += re.findall(r'<li><b>.*?</b><span>(.*?)</span></li>', s, re.S)
         for b in blocks:

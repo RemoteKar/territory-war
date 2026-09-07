@@ -145,6 +145,20 @@ main p a:hover { border-bottom-color:var(--gold); }
 .steps b { font-weight:640; }
 .steps span { color:var(--dim); font-size:14px; }
 
+.attack {
+  border-left:2px solid var(--gold); padding:2px 0 2px 16px; margin:34px 0;
+}
+.attack p { color:var(--ink); font-size:15px; margin:0 0 6px; }
+.attack p:last-child { margin-bottom:0; }
+.attack p ~ p { color:var(--dim); font-size:14px; }
+
+.playstyle p {
+  color:var(--dim); font-size:15.5px; line-height:1.85; max-width:66ch; margin-bottom:18px;
+}
+.playstyle p:first-of-type { color:var(--ink); }
+.statgrid.wide-stat { grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+.statgrid.wide-stat .stat b { font-size:15px; font-weight:600; letter-spacing:0; }
+
 .split { display:grid; gap:36px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
 .split.tight { gap:24px; }
 .split p { color:var(--dim); font-size:14.5px; }
@@ -227,6 +241,8 @@ button.pill:hover { border-color:var(--line2); }
   background:var(--panel2); color:var(--dim); font-size:12px; border:1px solid var(--line);
 }
 .tag.off { color:var(--bad); border-color:rgba(224,130,120,.3); }
+.tag.able { color:var(--ink); border-color:var(--line2); }
+.tag.fly { color:var(--out); border-color:rgba(121,166,232,.45); }
 
 .r i { font-style:normal; font-size:12.5px; white-space:nowrap; margin-right:9px; }
 .r i:last-child { margin-right:0; }
