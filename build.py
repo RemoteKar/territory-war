@@ -731,8 +731,8 @@ def unit_page(u, builds, units):
              ("유지비", str(u["upkeep"]), "")]
     if u.get("accuracyBand") and u["damage"] > 0:
         stats.append(("명중률", u["accuracyBand"], ""))
-    for key, label, note in [("crit", "치명타", ""), ("evasion", "회피", ""),
-                             ("block", "막기", ""), ("magicResist", "마법 저항", ""),
+    for key, label, note in [("crit", "치명타율", ""), ("evasion", "회피율", ""),
+                             ("block", "방어 확률", ""), ("magicResist", "마법 저항", ""),
                              ("pierceArmour", "방어 관통", "")]:
         v = u.get(key) or 0
         if v:
@@ -740,7 +740,7 @@ def unit_page(u, builds, units):
     # 기술 is derived from the tier and reads 10 for eighty-two of the hundred and two,
     # so on a page it is a column of the same number. Left out of the sheet.
     if (u.get("chargeBonus") or 1) > 1:
-        stats.append(("돌격 배수", "x%s" % u["chargeBonus"], "달려든 순간"))
+        stats.append(("돌격 배수", "x%s" % u["chargeBonus"], ""))
     if u["residents"] != 1:
         stats.append(("차지 인구", "%d명" % u["residents"], ""))
     if u["hireCost"]:
@@ -776,6 +776,23 @@ def unit_page(u, builds, units):
                 '</section>'
                 % "".join('<div class="stat"><span>%s</span><b>%s</b><i>%s</i></div>'
                           % (e(a), e(v), e(n)) for a, v, n in rows))
+
+    # The animal under the rider, which fights on its own account.
+    #
+    # maul lands in the same swing as the rider's, so the rate and the reach are his -
+    # what differs is that the beast gets neither the charge multiplier nor a crit. Two
+    # attackers in one exchange, and only one of them was on the page.
+    beast = ""
+    if u.get("maul"):
+        cells = [("피해", str(u["maul"]), "한 번에"),
+                 ("공속", "%s초" % u.get("secondsPerBlow"), "기수와 같은 타격"),
+                 ("사거리", str(u["range"]), "기수와 같음")]
+        beast = ('<section><h2>탑승물 공격</h2><div class="statgrid">%s</div>'
+                 '<p class="muted small">기수가 휘두르는 같은 박자에 짐승도 문다. '
+                 '방어력은 똑같이 적용되지만 돌격 배수와 치명타는 붙지 않는다.</p>'
+                 '</section>'
+                 % "".join('<div class="stat"><span>%s</span><b>%s</b><i>%s</i></div>'
+                           % (e(a), e(v), e(n)) for a, v, n in cells))
 
     # What it mends, and how often. Two clocks, and which one matters is the whole of
     # how a witch plays differently from a cardinal.
@@ -821,7 +838,15 @@ def unit_page(u, builds, units):
                        ("summoned", "소환"), ("crewOnly", "승무원")]:
         if u.get(key):
             tags.append('<span class="tag">%s</span>' % label)
-    if not u["labours"]:
+    # Only where it tells you something.
+    #
+    # A village fields hirelings, golems and illagers and not one of them labours, so the
+    # tag was on every card in the people and said nothing about any of them. The copper
+    # golem is the opposite case - the one machine built to fetch and carry, an exception
+    # written into UnitType.labours by name - and that is worth a chip.
+    if u["id"] == "COPPER_GOLEM":
+        tags.append('<span class="tag able">노동 가능</span>')
+    elif not u["labours"] and u.get("owner") != "VILLAGER":
         tags.append('<span class="tag off">노동 불가</span>')
 
     def bullets(items, cls):
@@ -922,10 +947,11 @@ def unit_page(u, builds, units):
 %s
 %s
 %s
+%s
 """ % (e(u["korean"]), e(u["korean"]), u["tier"], u["tier"], e(u["role"]),
        u["trainedAt"], e(builds[u["trainedAt"]]["korean"]),
        "".join(tags), race_pills(u["fieldableBy"], "../"), attack, grid, gear,
-       cost(u["cost"]), rate, mend, seats, lim, match, ups)
+       cost(u["cost"]), beast, rate, mend, seats, lim, match, ups)
     write("unit/%s.html" % u["id"], page(1, u["korean"], body, "units.html"))
 
 
