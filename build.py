@@ -935,6 +935,11 @@ def unit_page(u, builds, units):
              ("공격력", str(u["damage"]), ""),
              ("방어력", str(u.get("armour", 0)), ""),
              ]
+    # Only when it is worth saying. Nearly everything is a man, and a sheet that tells you
+    # so on every page is a sheet you stop reading.
+    if u.get("size") and u["size"] != "중형":
+        stats.append(("크기", u["size"],
+                      "창이 겨눈다" if u["size"] == "대형" else ""))
     # A shooter's rate is its reload; secondsPerBlow describes a melee swing it may never
     # make. Both, for the ones that do both.
     # A unit that deals no damage has no rate worth printing. A cleric's one-second swing
