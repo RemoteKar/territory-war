@@ -997,7 +997,23 @@ def unit_page(u, builds, units):
     # before any of them - said plainly rather than dressed up as the truth.
     rate = ""
     span = u["reloadSeconds"] if u["ranged"] else u["secondsPerBlow"]
-    if u["damage"] > 0 and span:
+    if u.get("detonates"):
+        # No rate. A creeper attacks once in its life and the figure a rate would give -
+        # damage divided by whatever interval the sheet happens to carry - is the damage
+        # it would do per second if it could keep doing it, which it cannot. It read as
+        # a hundred and twenty a second for a thing that does sixty, once, ever.
+        rows = [("한 번의 폭발", "%d" % u["damage"],
+                 "반경 %g블록, 되풀이 없음" % (u.get("blast") or 0))]
+        if u.get("hurtsOwn"):
+            rows.append(("아군 피해", "있음", "편을 가리지 않습니다"))
+        if (u.get("vsBuilding") or 1) != 1:
+            rows.append(("건물 피해", "%g배" % u["vsBuilding"], "폭발 기준"))
+        rate = ('<section><h2>실제 성능</h2><div class="statgrid">%s</div>'
+                '<p class="muted small">방어력·상성·연구를 적용하기 전 값이다.</p>'
+                '</section>'
+                % "".join('<div class="stat"><span>%s</span><b>%s</b><i>%s</i></div>'
+                          % (e(a), e(v), e(n)) for a, v, n in rows))
+    elif u["damage"] > 0 and span:
         label = "사격 초당 피해" if u.get("meleeAttack") else "초당 피해"
         rows = [(label, "%.1f" % (u["damage"] / span),
                  "공격력 %d ÷ 공속 %s초" % (u["damage"], span))]
