@@ -840,16 +840,22 @@ def building_page(b, units):
 
 # ---------------------------------------------------------------- units
 def on_the_site(u):
-    """Whether this unit is something a reader could ever field.
+    """Whether this unit is something a reader will ever meet.
 
-    The roster carries entries that exist so the game has something to name: units
-    withdrawn from production, the piglins' own troops, the hero. The listing already
-    left them out, but pages were being written for every unit regardless - so a
-    withdrawn dragon rider had no link anywhere and a page of its own, still stating
-    its cost and the building that trains it, sitting there to be found. Dummy data
-    should be dummy on the way out as well as on the way in.
+    Not the same question as whether it can be ordered. A piglin warrior and a hero
+    cannot be built by anybody and are on the field constantly, and somebody reading to
+    find out what just killed them wants exactly those pages - so being unbuildable
+    earns a place here rather than losing one.
+
+    What does not is a unit withdrawn from production. Nobody will meet one again, and
+    its page was still being written, linked from nowhere, with its price on it,
+    describing something no longer in the game. Dummy data should be dummy on the way
+    out as well as on the way in.
     """
-    return u["recruitable"] or u["undead"] or u["militia"]
+    if u.get("withdrawn"):
+        return False
+    return (u["recruitable"] or u["undead"] or u["militia"]
+            or u.get("unbuildable"))
 
 
 def listing_units(doc):
