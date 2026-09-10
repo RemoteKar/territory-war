@@ -139,6 +139,8 @@ def build():
         building_page(b, units)
     listing_units(doc)
     for u in doc["units"]:
+        if not on_the_site(u):
+            continue
         unit_page(u, builds, units)
     research(doc)
 
@@ -837,8 +839,21 @@ def building_page(b, units):
 
 
 # ---------------------------------------------------------------- units
+def on_the_site(u):
+    """Whether this unit is something a reader could ever field.
+
+    The roster carries entries that exist so the game has something to name: units
+    withdrawn from production, the piglins' own troops, the hero. The listing already
+    left them out, but pages were being written for every unit regardless - so a
+    withdrawn dragon rider had no link anywhere and a page of its own, still stating
+    its cost and the building that trains it, sitting there to be found. Dummy data
+    should be dummy on the way out as well as on the way in.
+    """
+    return u["recruitable"] or u["undead"] or u["militia"]
+
+
 def listing_units(doc):
-    shown = [u for u in doc["units"] if u["recruitable"] or u["undead"] or u["militia"]]
+    shown = [u for u in doc["units"] if on_the_site(u)]
     rows = ""
     for u in sorted(shown, key=lambda x: (x["tier"], x["role"], x["korean"])):
         rows += """
