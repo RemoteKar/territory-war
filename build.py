@@ -14,6 +14,7 @@ uniformity (E-2). Run tools/diagnose.py after touching any of the copy below.
 
     python build.py            # -> docs/
 """
+import datetime
 import glob
 import html
 import json
@@ -145,6 +146,31 @@ def build():
     print("built %d files into %s" % (n, OUT))
 
 
+# The server stamps its records in UTC and nobody reading them is in UTC. A fight at
+# half eleven at night was being shown as half two in the afternoon, which is not a small
+# thing to be wrong about when the question the page answers is "what happened last night".
+KST = datetime.timezone(datetime.timedelta(hours=9))
+
+WEEKDAYS = ["월", "화", "수", "목", "금", "토", "일"]
+
+
+def local(stamp):
+    """A record's ISO timestamp, on the clock of the room it was played in."""
+    if not stamp:
+        return None
+    text = stamp.replace("Z", "").split(".")[0]
+    try:
+        naive = datetime.datetime.strptime(text, "%Y-%m-%dT%H:%M:%S")
+    except ValueError:
+        return None
+    return naive.replace(tzinfo=datetime.timezone.utc).astimezone(KST)
+
+
+def day_title(day):
+    return "%d년 %d월 %d일 (%s)" % (day.year, day.month, day.day,
+                                    WEEKDAYS[day.weekday()])
+
+
 def load_battles():
     """Every record the server has written, newest first."""
     out = []
@@ -202,8 +228,12 @@ def battles(records):
         write("battles.html", page(0, "전투 기록", body, "battles.html"))
         return
 
-    cards = ""
+    # Built per record first, grouped by day second. The page used to be one column of
+    # every fight ever had, newest at the top, and after a hundred of them that is not a
+    # record anybody reads - it is a pile you scroll past looking for last night.
+    made = []
     for b in records:
+        when = local(b.get("closed"))
         sides = ""
         for s0 in b["sides"]:
             won = s0.get("won")
@@ -241,7 +271,7 @@ def battles(records):
                 ('<p class="muted small">연구 : %s</p>' % e(" · ".join(studies)))
                 if studies else "",
                 defences(s0))
-        cards += """
+        made.append((when, """
   <article class="battle">
     <header>
       <span class="tag">%s</span>
@@ -250,18 +280,41 @@ def battles(records):
     </header>
     <div class="sides">%s</div>
   </article>""" % (e(b["kind"]), e(b.get("where") or "-"),
-                   e((b.get("closed") or "")[:16].replace("T", " ")),
+                   when.strftime("%H:%M") if when else "-",
                    b.get("seconds", 0),
                    " · 미결" if b.get("outcome") == "미결" else
                    (" · 무승부" if b.get("outcome") == "무승부" else ""),
-                   sides)
+                   sides), b.get("kind")))
+
+    # One block a day, newest first, and only the newest one open. Records already
+    # arrive newest first, so a day ends where the date under it changes.
+    days = []
+    for when, card, kind in made:
+        key = when.date() if when else None
+        if not days or days[-1][0] != key:
+            days.append((key, [], {}))
+        days[-1][1].append(card)
+        days[-1][2][kind] = days[-1][2].get(kind, 0) + 1
+
+    cards = ""
+    for index, (key, block, kinds) in enumerate(days):
+        breakdown = " · ".join("%s %d" % (e(k or "-"), v)
+                               for k, v in sorted(kinds.items(), key=lambda kv: -kv[1]))
+        cards += """
+  <details class="day"%s>
+    <summary><b>%s</b><span class="muted small">%d전 · %s</span></summary>
+    <div class="day-body">%s</div>
+  </details>""" % (" open" if index == 0 else "",
+                   e(day_title(key)) if key else "날짜 미상",
+                   len(block), breakdown, "".join(block))
 
     body = """
 <header class="page-head">
   <p class="kicker">전투 기록</p>
   <h1>치러진 싸움 <em>%d</em></h1>
   <p class="lead">서버가 스스로 적어 둔 것들이다. 양쪽이 무엇을 데려왔고 도중에 무엇이
-     더 왔으며 무엇이 남았는지, 그때 어떤 연구가 끝나 있었는지까지.</p>
+     더 왔으며 무엇이 남았는지, 그때 어떤 연구가 끝나 있었는지까지.
+     하루씩 접어 두었고, 가장 최근 날짜만 펼쳐 둔다.</p>
 </header>
 %s
 """ % (len(records), cards)
@@ -1416,6 +1469,20 @@ main p a:hover { border-bottom-color:var(--gold); }
 .chip.ground em, .chip.study em { color:inherit; opacity:.7; }
 .legend { display:flex; gap:8px; margin-top:14px; }
 .legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
+
+.day { margin-bottom:14px; border:1px solid var(--line); border-radius:var(--r);
+       background:var(--panel); overflow:hidden; }
+.day > summary { list-style:none; cursor:pointer; padding:14px 18px;
+                 display:flex; gap:12px; align-items:baseline; flex-wrap:wrap;
+                 background:var(--bg2); user-select:none; }
+.day > summary::-webkit-details-marker { display:none; }
+.day > summary::before { content:"\25b8"; color:var(--faint); font-size:11px;
+                         transition:transform .12s ease; }
+.day[open] > summary::before { transform:rotate(90deg); }
+.day > summary b { font-size:15px; color:var(--ink); }
+.day > summary:hover { background:var(--panel); }
+.day-body { padding:16px 18px 4px; }
+.day-body .battle:last-child { margin-bottom:12px; }
 
 .battle {
   background:var(--panel); border:1px solid var(--line); border-radius:var(--r);

@@ -162,6 +162,20 @@ main p a:hover { border-bottom-color:var(--gold); }
 .legend { display:flex; gap:8px; margin-top:14px; }
 .legend .chip { cursor:default; font-size:12px; padding:3px 9px; }
 
+.day { margin-bottom:14px; border:1px solid var(--line); border-radius:var(--r);
+       background:var(--panel); overflow:hidden; }
+.day > summary { list-style:none; cursor:pointer; padding:14px 18px;
+                 display:flex; gap:12px; align-items:baseline; flex-wrap:wrap;
+                 background:var(--bg2); user-select:none; }
+.day > summary::-webkit-details-marker { display:none; }
+.day > summary::before { content:"b8"; color:var(--faint); font-size:11px;
+                         transition:transform .12s ease; }
+.day[open] > summary::before { transform:rotate(90deg); }
+.day > summary b { font-size:15px; color:var(--ink); }
+.day > summary:hover { background:var(--panel); }
+.day-body { padding:16px 18px 4px; }
+.day-body .battle:last-child { margin-bottom:12px; }
+
 .battle {
   background:var(--panel); border:1px solid var(--line); border-radius:var(--r);
   padding:20px; margin-bottom:16px;
