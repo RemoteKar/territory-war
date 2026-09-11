@@ -940,6 +940,12 @@ def unit_page(u, builds, units):
     if u.get("summons") and not (u["damage"] > 0):
         stats.append(("소환", u["summons"],
                       "%s초 유지 · %s초 간격" % (u.get("summonLife"), u.get("summonCooldown"))))
+    if u.get("hollow"):
+        stats.append(("유해", "소모 없음",
+                      "속이 비어 있어 일으켜 세울 시신이 필요 없습니다"))
+    if u.get("rally"):
+        stats.append(("지휘", "%.1f초" % (u["rally"] / 20.0),
+                      "주위 아군의 공격력과 이동력을 끌어올립니다"))
     if u.get("size") and u["size"] != "중형":
         stats.append(("크기", u["size"],
                       "창이 겨눈다" if u["size"] == "대형" else ""))
