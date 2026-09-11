@@ -947,6 +947,13 @@ def unit_page(u, builds, units):
     if u.get("summons") and not (u["damage"] > 0):
         stats.append(("소환", u["summons"],
                       summon_terms(u)))
+    if u.get("shieldPoints"):
+        stats.append(("보호막", "%g" % u["shieldPoints"],
+                      "%g블록 안의 아군에게 %g초마다 · 중첩되지 않습니다"
+                      % (u["shieldReach"], u["shieldEvery"])))
+    if u.get("eruptWind"):
+        stats.append(("시전", "%g초" % (u["eruptWind"] / 20.0),
+                      "날아가는 것이 없어 겨냥한 자리에 그대로 떨어집니다"))
     if u.get("hollow"):
         stats.append(("유해", "소모 없음",
                       "속이 비어 있어 일으켜 세울 시신이 필요 없습니다"))
