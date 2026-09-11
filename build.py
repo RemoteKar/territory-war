@@ -156,6 +156,13 @@ KST = datetime.timezone(datetime.timedelta(hours=9))
 WEEKDAYS = ["월", "화", "수", "목", "금", "토", "일"]
 
 
+def summon_terms(u):
+    """소환물이 얼마나 버티는가. 음수는 안 사라진다는 뜻이다."""
+    life = u.get("summonLife")
+    held = "사라지지 않음" if life is not None and life < 0 else "%s초 유지" % life
+    return "%s · %s초 간격" % (held, u.get("summonCooldown"))
+
+
 def local(stamp):
     """A record's ISO timestamp, on the clock of the room it was played in."""
     if not stamp:
@@ -939,7 +946,7 @@ def unit_page(u, builds, units):
     # so on every page is a sheet you stop reading.
     if u.get("summons") and not (u["damage"] > 0):
         stats.append(("소환", u["summons"],
-                      "%s초 유지 · %s초 간격" % (u.get("summonLife"), u.get("summonCooldown"))))
+                      summon_terms(u)))
     if u.get("hollow"):
         stats.append(("유해", "소모 없음",
                       "속이 비어 있어 일으켜 세울 시신이 필요 없습니다"))
@@ -1050,7 +1057,7 @@ def unit_page(u, builds, units):
             rows.append(("인접 피해", "%d%%" % round(u["splash"] * 100), "함께 들어감"))
         if u.get("summons"):
             rows.append(("소환", u["summons"],
-                         "%s초 유지 · %s초 간격" % (u.get("summonLife"), u.get("summonCooldown"))))
+                         summon_terms(u)))
         if (u.get("chargeBonus") or 1) > 1:
             rows.append(("돌격 시", "%.1f" % (u["damage"] * u["chargeBonus"]), "한 번의 피해"))
         rate = ('<section><h2>실제 성능</h2><div class="statgrid">%s</div>'
