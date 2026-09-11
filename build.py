@@ -937,6 +937,9 @@ def unit_page(u, builds, units):
              ]
     # Only when it is worth saying. Nearly everything is a man, and a sheet that tells you
     # so on every page is a sheet you stop reading.
+    if u.get("summons") and not (u["damage"] > 0):
+        stats.append(("소환", u["summons"],
+                      "%s초 유지 · %s초 간격" % (u.get("summonLife"), u.get("summonCooldown"))))
     if u.get("size") and u["size"] != "중형":
         stats.append(("크기", u["size"],
                       "창이 겨눈다" if u["size"] == "대형" else ""))
@@ -1039,6 +1042,9 @@ def unit_page(u, builds, units):
                          "%d발 전탄 명중 시" % u["salvo"]))
         if u.get("splash"):
             rows.append(("인접 피해", "%d%%" % round(u["splash"] * 100), "함께 들어감"))
+        if u.get("summons"):
+            rows.append(("소환", u["summons"],
+                         "%s초 유지 · %s초 간격" % (u.get("summonLife"), u.get("summonCooldown"))))
         if (u.get("chargeBonus") or 1) > 1:
             rows.append(("돌격 시", "%.1f" % (u["damage"] * u["chargeBonus"]), "한 번의 피해"))
         rate = ('<section><h2>실제 성능</h2><div class="statgrid">%s</div>'
